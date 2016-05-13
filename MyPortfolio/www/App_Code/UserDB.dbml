@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Portfolio" Class="UserDBDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=ISTOEV\SQLEXPRESS;Initial Catalog=Portfolio;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="PortfolioConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.restaurant" Member="restaurants">
+    <Type Name="restaurant">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="address" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="openHours" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="restaurant_product" Member="products" ThisKey="id" OtherKey="resId" Type="product" />
+    </Type>
+  </Table>
+  <Table Name="dbo.product" Member="products">
+    <Type Name="product">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="content" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="protein" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
+      <Column Name="carbs" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
+      <Column Name="fat" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
+      <Column Name="resId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="price" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
+      <Column Name="ordered" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="totalCalories" Type="System.Decimal" DbType="Decimal(14,2)" IsDbGenerated="true" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="photo" Type="System.Data.Linq.Binary" DbType="Image" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="fGroup" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="product_orderLine" Member="orderLines" ThisKey="id" OtherKey="prodId" Type="orderLine" />
+      <Association Name="restaurant_product" Member="restaurant" ThisKey="resId" OtherKey="id" Type="restaurant" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ordAndLine" Member="ordAndLines">
+    <Type Name="ordAndLine">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="orderId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="orderLineId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="orderLine_ordAndLine" Member="orderLine" ThisKey="orderLineId" OtherKey="id" Type="orderLine" IsForeignKey="true" />
+      <Association Name="order_ordAndLine" Member="order" ThisKey="orderId" OtherKey="id" Type="order" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.orderLine" Member="orderLines">
+    <Type Name="orderLine">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="prodId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="orderLine_ordAndLine" Member="ordAndLines" ThisKey="id" OtherKey="orderLineId" Type="ordAndLine" />
+      <Association Name="product_orderLine" Member="product" ThisKey="prodId" OtherKey="id" Type="product" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.[_User]" Member="_Users">
+    <Type Name="_User">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="userName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="FirstName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="password" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="email" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="LastName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="[_Address]" Member="_Address" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="sex" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="_User_order" Member="orders" ThisKey="id" OtherKey="userId" Type="order" />
+      <Association Name="_User_Contact" Member="Contacts" ThisKey="id" OtherKey="userId" Type="Contact" />
+    </Type>
+  </Table>
+  <Table Name="dbo.orders" Member="orders">
+    <Type Name="order">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="orderDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="total" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
+      <Column Name="userId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="[_address]" Member="_address" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="totalCals" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="ordStatus" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="order_ordAndLine" Member="ordAndLines" ThisKey="id" OtherKey="orderId" Type="ordAndLine" />
+      <Association Name="_User_order" Member="_User" ThisKey="userId" OtherKey="id" Type="_User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Contact" Member="Contacts">
+    <Type Name="Contact">
+      <Column Name="ContactId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Comment" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="ContactDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="userId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="[_subject]" Member="_subject" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="_User_Contact" Member="_User" ThisKey="userId" OtherKey="id" Type="_User" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>
