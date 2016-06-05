@@ -45,7 +45,7 @@
                 <div class="nav-collapse collapse pull-right">
                     <ul class="nav">
                         <li id="homeMenuItem" runat="server"><a href="Home.aspx">Home</a></li>
-                        <li id="aboutMenuItem" runat="server"><a href="AboutMe.aspx">About Me</a></li>
+                       <!-- <li id="aboutMenuItem" runat="server"><a href="AboutMe.aspx">About Me</a></li> -->
                         
                         
                         <li id="contactMenuItem" runat="server"><a href="Contact.aspx">Contact</a></li>

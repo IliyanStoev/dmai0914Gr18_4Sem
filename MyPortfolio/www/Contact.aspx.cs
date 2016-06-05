@@ -40,14 +40,14 @@ public partial class Contact : System.Web.UI.Page
 
         theMessage.From = new MailAddress(senderTb.Text);
 
-        theMessage.AddTo("blabla@mail.bg");
+        theMessage.AddTo("c20xe@mail.bg");
 
         theMessage.Subject = subjectTb.Text;
 
         theMessage.Text = messageTb.Text;
 
-        string userName = "";
-        string password = "";
+        string userName = "azure_c27c4fa0c170d44a26686cab79e3eab0@azure.com";
+        string password = "Iliyan89";
 
         var credentials = new NetworkCredential(userName, password);
 

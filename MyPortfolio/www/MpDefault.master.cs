@@ -22,9 +22,9 @@ public partial class MpDefault : System.Web.UI.MasterPage
                 contactMenuItem.Attributes["class"] = "active";
                 break;
 
-                case "About Me":
+                /*case "About Me":
                 aboutMenuItem.Attributes["class"] = "active";
-                break;
+                break; */
 
                 case "Registration":
 

@@ -66,10 +66,10 @@
     </div>
 
     <div>
-        <asp:GridView ID="GridView2" runat="server" OnRowCommand="GridView2_RowCommand" AutoGenerateColumns="false" ShowFooter="true">
+        <asp:GridView ID="GridView2" runat="server" OnRowCommand="GridView2_RowCommand" AutoGenerateColumns="false" ShowFooter="true" DataKeyNames="id, prodId">
             <Columns>
-                <asp:BoundField HeaderText="Id" DataField="id" />
-                <asp:BoundField HeaderText="Product Id" DataField="prodId" />
+                <asp:BoundField HeaderText="OrderLineId" DataField="id" Visible="false"  />
+                <asp:BoundField HeaderText="Product Id" DataField="prodId" Visible="false" />
                 <asp:BoundField HeaderText="Product Name"/>
                 <asp:BoundField HeaderText="Protein"/>
                 <asp:BoundField HeaderText="Carbohydrates"/>

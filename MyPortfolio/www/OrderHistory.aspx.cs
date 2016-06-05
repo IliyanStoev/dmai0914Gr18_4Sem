@@ -26,8 +26,8 @@ public partial class OrderHistory : System.Web.UI.Page
         if (e.CommandName == "ViewDetails")
         {
             int rowId = Convert.ToInt32(e.CommandArgument);
-            
-            int ordId = Convert.ToInt32(GridView1.Rows[rowId].Cells[0].Text);
+            int ordId = Convert.ToInt32(GridView1.DataKeys[rowId].Values[0]);
+            //int ordId = Convert.ToInt32(GridView1.Rows[rowId].Cells[0].Text);
 
             OrderCtrl ordCtrl = new OrderCtrl();
             order ordr = ordCtrl.GetOrderById(ordId);

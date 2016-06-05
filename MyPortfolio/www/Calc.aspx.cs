@@ -60,30 +60,45 @@ public partial class Calc : System.Web.UI.Page
 
     protected void btnCalculateDailyClick(object sender, EventArgs e)
     {
-        double bmr = Convert.ToDouble(BMR.Value);
+        double bmr = 0;
 
-        if (little.Selected)
+        if (BMR.Value != "")
         {
-            dailyCals.Value = Convert.ToString(bmr * 1.2);
-        }
-        if (light.Selected)
-        {
-            dailyCals.Value = Convert.ToString(bmr * 1.375);
-        }
-        if (moderate.Selected)
-        {
-            dailyCals.Value = Convert.ToString(bmr * 1.55);
-        }
-        if (hard.Selected)
-        {
-            dailyCals.Value = Convert.ToString(bmr * 1.725);
-        }
-        if (veryHard.Selected)
-        {
-            dailyCals.Value = Convert.ToString(bmr * 1.9);
-        }
+            bmr = Convert.ToDouble(BMR.Value);
 
-        fillCal();
+            //double bmr = Convert.ToDouble(BMR.Value);
+            /*else
+            {
+                ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('" + "Please Calculate your BMR First" + "');", true);
+            }
+            */
+            if (little.Selected)
+            {
+                dailyCals.Value = Convert.ToString(bmr * 1.2);
+            }
+            if (light.Selected)
+            {
+                dailyCals.Value = Convert.ToString(bmr * 1.375);
+            }
+            if (moderate.Selected)
+            {
+                dailyCals.Value = Convert.ToString(bmr * 1.55);
+            }
+            if (hard.Selected)
+            {
+                dailyCals.Value = Convert.ToString(bmr * 1.725);
+            }
+            if (veryHard.Selected)
+            {
+                dailyCals.Value = Convert.ToString(bmr * 1.9);
+            }
+
+            fillCal();
+        }
+        else
+        {
+            ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('" + "Please Calculate your BMR First" + "');", true);
+        }
     }
 
     private void fillCal()

@@ -28,10 +28,8 @@ public class OrderCtrl
         order._address = address;
         order.totalCals = Convert.ToDecimal(totalCals);
         order.ordStatus = false;
-
-
-        // ordDB = new OrderDB();
-         return ordDB.saveOrder(order);
+ 
+        return ordDB.saveOrder(order);
 
     }
 

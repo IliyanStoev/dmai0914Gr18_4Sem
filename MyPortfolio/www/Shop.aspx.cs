@@ -188,6 +188,8 @@ public partial class Shop : System.Web.UI.Page
             int userId = Convert.ToInt32(HttpContext.Current.Session["id"]);
 
             int productId = Convert.ToInt32(GridView1.Rows[index].Cells[0].Text);
+           
+            
             ResCtrl resCtrl = new ResCtrl();
 
             OrderLineCtrl ordLctrl = new OrderLineCtrl();
@@ -251,14 +253,18 @@ public partial class Shop : System.Web.UI.Page
 
 
 
+            
 
             GridView2.DataSource = ordLines;
 
             GridView2.DataBind();
 
+
             foreach (GridViewRow gvR in GridView2.Rows)
             {
-                product prod = resCtrl.GetProductByProdId(Convert.ToInt32(gvR.Cells[1].Text));
+                int prodId = Convert.ToInt32(GridView2.DataKeys[gvR.RowIndex].Values[1]);
+                //product prod = resCtrl.GetProductByProdId(Convert.ToInt32(gvR.Cells[1].Text));
+                product prod = resCtrl.GetProductByProdId(prodId);
                 gvR.Cells[2].Text = prod.name;
                 gvR.Cells[3].Text = prod.protein.ToString();
                 gvR.Cells[4].Text = prod.carbs.ToString();
@@ -334,13 +340,15 @@ public partial class Shop : System.Web.UI.Page
 
     protected void GridView2_RowCommand(object sender, GridViewCommandEventArgs e)
     {
+        
         ResCtrl resCtrl = new ResCtrl();
 
         if (e.CommandName == "Remove")
         {
             int index = Convert.ToInt32(e.CommandArgument);
-
-           int orderLineId = Convert.ToInt32(GridView2.Rows[index].Cells[0].Text);
+           
+           int orderLineId = Convert.ToInt32(GridView2.DataKeys[index].Values[0]);
+           
 
             foreach (orderLine ordL in ordLines.ToList())
             {
@@ -354,7 +362,9 @@ public partial class Shop : System.Web.UI.Page
 
             foreach (GridViewRow gvR in GridView2.Rows)
             {
-                product prod = resCtrl.GetProductByProdId(Convert.ToInt32(gvR.Cells[1].Text));
+
+                int prodId = Convert.ToInt32(GridView2.DataKeys[gvR.RowIndex].Values[1]);
+                product prod = resCtrl.GetProductByProdId(prodId);
                 gvR.Cells[2].Text = prod.name;
                 gvR.Cells[3].Text = prod.protein.ToString();
                 gvR.Cells[4].Text = prod.carbs.ToString();
@@ -365,6 +375,7 @@ public partial class Shop : System.Web.UI.Page
 
 
             GridView2CalculateFooter();
+           
 
             if (ordLines.Count == 0)
             {
