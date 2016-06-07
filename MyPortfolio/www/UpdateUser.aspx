@@ -11,8 +11,8 @@
         </div>
         <div class="span6">
           <ul class="breadcrumb pull-right">
-            <li><a href="index.html">Home</a> <span class="divider">/</span></li>
-            <li><a href="#">Pages</a> <span class="divider">/</span></li>
+            <li><a href="Home.aspx">Home</a> <span class="divider">/</span></li>
+           
             <li class="active">User Profile</li>
           </ul>
         </div>
@@ -37,6 +37,7 @@
           <div class="controls">
             <input type="text" id="firstName" placeholder="First Name" class="input-xlarge"  runat="server" readonly="true"/> <input type="text" id="firstName2" placeholder="New First Name" class="input-xlarge" runat="server"/>
           </div>
+              <asp:RegularExpressionValidator ID="regexpFirstName2" runat="server" CssClass="alert-error" ErrorMessage="First Name must be minimum of 3 chars" ControlToValidate="firstName2" ValidationExpression="^[a-zA-Z]{3,40}$" />
         </div>
 
           <div class="control-group">
@@ -44,6 +45,7 @@
           <div class="controls">
             <input type="text" id="lastName" placeholder="Last Name" class="input-xlarge" runat="server" readonly="true"/> <input type="text" id="lastName2" placeholder="New Last Name" class="input-xlarge" runat="server"/>
           </div>
+              <asp:RegularExpressionValidator ID="regexpLastName" runat="server" CssClass="alert-error" ErrorMessage="Last Name must be minimum of 3 chars" ControlToValidate="lastName2" ValidationExpression="^[a-zA-Z]{3,40}$" />
         </div>
 
           <div class="control-group">
@@ -58,6 +60,7 @@
           <div class="controls">
             <input type="text" id="email" placeholder="E-mail" class="input-xlarge" runat="server" readonly="true"/> <input type="text" id="email2" placeholder="New Email" class="input-xlarge" runat="server"/>
           </div>
+            <asp:RegularExpressionValidator ID="regexpEmail" runat="server" CssClass="alert-error" ErrorMessage="Not valid email format" ControlToValidate="email2" ValidationExpression="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$"></asp:RegularExpressionValidator>
         </div>
 
         <div class="control-group">

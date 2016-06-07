@@ -73,6 +73,12 @@ public class UserCtrl
         return TuserDB.GetUserById(id);
     }
 
+
+    public List<_User> GetAllUsers()
+    {
+        return TuserDB.GetAllUsers();
+    }
+
    
 
 }

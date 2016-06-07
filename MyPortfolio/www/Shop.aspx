@@ -13,7 +13,7 @@
                 <div class="span6">
                     <ul class="breadcrumb pull-right">
                         <li><a href="Home.aspx">Home</a> <span class="divider">/</span></li>
-                        <li><a href="#">Pages</a> <span class="divider">/</span></li>
+                        
                         <li class="active">Shop</li>
                     </ul>
                 </div>

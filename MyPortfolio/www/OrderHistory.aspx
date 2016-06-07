@@ -3,6 +3,27 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+    <section class="title">
+    <div class="container">
+      <div class="row-fluid">
+        <div class="span6">
+          <h1>Orders History</h1>
+        </div>
+        <div class="span6">
+          <ul class="breadcrumb pull-right">
+            <li><a href="Home.aspx">Home</a> <span class="divider">/</span></li>
+            <li><a href="UpdateUser.aspx">User Profile</a> <span class="divider">/</span></li>
+            
+            <li class="active">Orders History</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+    <div class="center">
+     <h2><asp:Label runat="server" ID="lblNoOrd" Visible="false">You have no orders so far</asp:Label></h2>
+   
+        </div>
     <div class="container center">
     
         <asp:GridView ID="GridView1" CellPadding="6" runat="server" GridLines="None" DataKeyNames="Id" OnRowCommand="GridView1_RowCommand" Width="352px" AutoGenerateColumns="False">

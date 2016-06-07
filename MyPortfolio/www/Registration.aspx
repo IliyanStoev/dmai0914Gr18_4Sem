@@ -12,8 +12,8 @@
         </div>
         <div class="span6">
           <ul class="breadcrumb pull-right">
-            <li><a href="index.html">Home</a> <span class="divider">/</span></li>
-            <li><a href="#">Pages</a> <span class="divider">/</span></li>
+            <li><a href="Home.aspx">Home</a> <span class="divider">/</span></li>
+           
             <li class="active">Registration</li>
           </ul>
         </div>
@@ -30,26 +30,29 @@
           <!-- Username -->
           <div class="controls">
             <input type="text" id="username" name="username" placeholder="Username" class="input-xlarge" required="required" runat="server"/>
-          </div>
+         </div>
+            <asp:RegularExpressionValidator ID="regexpUserName" runat="server" CssClass="alert-error" ErrorMessage="Username must be atleast 6 and maximum of 16 chars" ControlToValidate="username" ValidationExpression="^[a-zA-Z'.\s]{6,16}$" />
         </div>
           <div class="control-group">
-          <!-- Username -->
+          <!-- First Name -->
           <div class="controls">
             <input type="text" id="firstName" name="firstName" placeholder="First Name" class="input-xlarge" required="required" runat="server"/>
           </div>
+              <asp:RegularExpressionValidator ID="regexpFirstName" runat="server" CssClass="alert-error" ErrorMessage="First Name must be minimum of 3 chars" ControlToValidate="firstName" ValidationExpression="^[a-zA-Z]{3,40}$" />
         </div>
 
           <div class="control-group">
-          <!-- Username -->
+          <!-- Last Name -->
           <div class="controls">
             <input type="text" id="lastName" name="lastName" placeholder="Last Name" class="input-xlarge" required="required" runat="server"/>
-          </div>
+           </div>
+              <asp:RegularExpressionValidator ID="regexpLastName" runat="server" CssClass="alert-error" ErrorMessage="Last Name must be minimum of 3 chars" ControlToValidate="lastName" ValidationExpression="^[a-zA-Z]{3,40}$" />
         </div>
 
           <div class="control-group">
-          <!-- Username -->
+          <!-- Address -->
           <div class="controls">
-            <input type="text" id="address" name="address" placeholder="Address" class="input-xlarge" required="required" runat="server"/>
+            <input type="text" id="address" name="address" placeholder="Address" class="input-xlarge" runat="server"/>
           </div>
         </div>
 
@@ -57,7 +60,9 @@
           <!-- E-mail -->
           <div class="controls">
             <input type="text" id="email" name="email" placeholder="E-mail" class="input-xlarge" required="required" runat="server"/>
+              
           </div>
+            <asp:RegularExpressionValidator ID="regexpEmail" runat="server" CssClass="alert-error" ErrorMessage="Not valid email format" ControlToValidate="email" ValidationExpression="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$"></asp:RegularExpressionValidator>
         </div>
 
         <div class="control-group">

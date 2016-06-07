@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 
@@ -27,7 +28,6 @@ public class OrderDB : BaseDB
 
     public order createOrder(order order)
     {
-      
             dataContext.orders.InsertOnSubmit(order);
             dataContext.SubmitChanges();
 

@@ -15,32 +15,39 @@ public partial class Registration : System.Web.UI.Page
     {
         UserCtrl userCtrl = new UserCtrl();
 
-        string userName = username.Value;
-        string FirstName = firstName.Value;
-        string LastName = lastName.Value;
-        string _address = address.Value;
-        string password = userPassword.Value;
-        string userEmail = email.Value;
-        string sex = "";
-        if (radioMale.Checked)
-        {
-            sex = "Male";
-        }
-        else if(radioFemale.Checked)
-        {
-            sex = "Female";
-        }
 
-        PasswordHash pshash = new PasswordHash();
-        
-        string dbPass = pshash.GetHashedPassword(password);
+        if (userCtrl.GetUser(username.Value) != null)
+        {
+            ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('" + "Username has been already taken" + "');", true);
+        }
+        else
+        {
+            string userName = username.Value;
+            string FirstName = firstName.Value;
+            string LastName = lastName.Value;
+            string _address = address.Value;
+            string password = userPassword.Value;
+            string userEmail = email.Value;
+            string sex = "";
+            if (radioMale.Checked)
+            {
+                sex = "Male";
+            }
+            else if (radioFemale.Checked)
+            {
+                sex = "Female";
+            }
 
-       
-        
+            PasswordHash pshash = new PasswordHash();
+
+            string dbPass = pshash.GetHashedPassword(password);
+
+
+
             userCtrl.CreateUser(userName, FirstName, LastName, dbPass, userEmail, _address, sex);
             Response.Redirect("Success.aspx");
-        
 
+        }
 
 
 

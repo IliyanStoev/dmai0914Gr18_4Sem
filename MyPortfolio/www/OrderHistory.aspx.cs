@@ -51,7 +51,15 @@ public partial class OrderHistory : System.Web.UI.Page
 
         orders = ordCtrl.GetOrderByUserId(Convert.ToInt32(Session["id"]));
 
-        GridView1.DataSource = orders;
-        GridView1.DataBind();
+        if (orders.Count > 0)
+        {
+            GridView1.DataSource = orders;
+            GridView1.DataBind();
+        }
+
+        else
+        {
+            lblNoOrd.Visible = true;
+        }
     }
 }
