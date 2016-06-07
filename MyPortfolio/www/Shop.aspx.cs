@@ -188,6 +188,10 @@ public partial class Shop : System.Web.UI.Page
             int userId = Convert.ToInt32(HttpContext.Current.Session["id"]);
 
             int productId = Convert.ToInt32(GridView1.Rows[index].Cells[0].Text);
+
+            DropDownList quantDd = (DropDownList)GridView1.Rows[index].FindControl("quantDd");
+
+            int selectedQuantity = Convert.ToInt32(quantDd.SelectedItem.Value); 
            
             
             ResCtrl resCtrl = new ResCtrl();
@@ -211,6 +215,9 @@ public partial class Shop : System.Web.UI.Page
                 {
                     ordL.id = ordLctrl.GetMaxOrderLineId() + 1;
                     ordL.prodId = productId;
+                    
+                    ordL.quantity = selectedQuantity;
+                    
                     ordLines.Add(ordL);
                 }
 
@@ -219,6 +226,7 @@ public partial class Shop : System.Web.UI.Page
                     int oldId = ordLines.Max(obj => obj.id);
                     ordL.prodId = productId;
                     ordL.id = oldId + 1;
+                    ordL.quantity = selectedQuantity;
                     ordLines.Add(ordL);
                 }
 
@@ -235,6 +243,7 @@ public partial class Shop : System.Web.UI.Page
                 {
                     ordL.id = ordLctrl.GetMaxOrderLineId() + 1;
                     ordL.prodId = productId;
+                    ordL.quantity = selectedQuantity;
                     ordLines.Add(ordL);
                 }
 
@@ -242,6 +251,7 @@ public partial class Shop : System.Web.UI.Page
                 {
                     int oldId = ordLines.Max(obj => obj.id);
                     ordL.prodId = productId;
+                    ordL.quantity = selectedQuantity;
                     ordL.id = oldId + 1;
 
 
@@ -263,15 +273,33 @@ public partial class Shop : System.Web.UI.Page
             foreach (GridViewRow gvR in GridView2.Rows)
             {
                 int prodId = Convert.ToInt32(GridView2.DataKeys[gvR.RowIndex].Values[1]);
-                //product prod = resCtrl.GetProductByProdId(Convert.ToInt32(gvR.Cells[1].Text));
+                
                 product prod = resCtrl.GetProductByProdId(prodId);
+
                 gvR.Cells[2].Text = prod.name;
-                gvR.Cells[3].Text = prod.protein.ToString();
-                gvR.Cells[4].Text = prod.carbs.ToString();
-                gvR.Cells[5].Text = prod.fat.ToString();
-                gvR.Cells[6].Text = prod.totalCalories.ToString();
-                gvR.Cells[7].Text = prod.price.ToString();
+
+                decimal protein = Convert.ToInt32(gvR.Cells[8].Text) * Convert.ToDecimal(prod.protein);
+
+                gvR.Cells[3].Text = protein.ToString();
+
+                decimal carbs = Convert.ToInt32(gvR.Cells[8].Text) * Convert.ToDecimal(prod.carbs);
+
+                gvR.Cells[4].Text = carbs.ToString();
+
+                decimal fat = Convert.ToInt32(gvR.Cells[8].Text) * Convert.ToDecimal(prod.fat);
+
+                gvR.Cells[5].Text = fat.ToString();
+
+                decimal totalCalories = Convert.ToInt32(gvR.Cells[8].Text) * Convert.ToDecimal(prod.totalCalories);
+
+                gvR.Cells[6].Text = totalCalories.ToString();
+
+                decimal sum = Convert.ToInt32(gvR.Cells[8].Text) * Convert.ToDecimal(prod.price);
+
+                gvR.Cells[7].Text = sum.ToString();
+                
             }
+            
 
             GridView2CalculateFooter();
 
@@ -287,6 +315,8 @@ public partial class Shop : System.Web.UI.Page
 
     protected void createOrderBtn_Click(object sender, EventArgs e)
     {
+        bool isInStock = false;
+
         OrderCtrl ordCtrl = new OrderCtrl();
         ResCtrl resCtrl = new ResCtrl();
         int id = Convert.ToInt32(HttpContext.Current.Session["id"]);
@@ -294,13 +324,31 @@ public partial class Shop : System.Web.UI.Page
         realDouble = Convert.ToDouble(GridView2.FooterRow.Cells[7].Text);
         double totalCals = Convert.ToDouble(GridView2.FooterRow.Cells[6].Text);
 
-        int rows = ordCtrl.createOrder(ord.id, DateTime.Now, realDouble, id, adr, totalCals);
+        foreach (orderLine ordL in ordLines)
+        {
+            if (resCtrl.CheckStock(Convert.ToInt32(ordL.prodId), Convert.ToInt32(ordL.quantity)))
+            {
+                isInStock = true;
+            }
+            else 
+
+            {
+                isInStock = false;
+                break;
+            }
+
+            
+        }
+        if (isInStock)
+        {
+            int rows = ordCtrl.createOrder(ord.id, DateTime.Now, realDouble, id, adr, totalCals);
+        
+        
 
         foreach (orderLine ordL in ordLines)
         {
 
-            product prod = resCtrl.GetProductByProdId(Convert.ToInt32(ordL.prodId));
-
+           
             ordAndLine ordAndLineObject = new ordAndLine();
 
             ordAndLineObject.orderLineId = ordL.id;
@@ -312,10 +360,11 @@ public partial class Shop : System.Web.UI.Page
             ordLineCtrl.SaveOrderLine2(ordL);
             ordAndLctrl.SaveOrderAndLine(ordAndLineObject);
 
-            prod.ordered++;
-
-            resCtrl.UpdateProduct(prod);
-        }
+            resCtrl.UpdateProduct2(Convert.ToInt32(ordL.prodId), Convert.ToInt32(ordL.quantity));
+            
+                
+               
+          }
 
         if (rows > 0)
         {
@@ -331,8 +380,16 @@ public partial class Shop : System.Web.UI.Page
             string msg = "Something went wrong, please try again";
             Response.Write("<script>alert('" + msg + "')</script>");
         }
+     
+            
+        }
 
-
+        else
+        {
+            ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('" + "Some product is out of stock" + "');", true);
+        }
+        
+  
 
     }
 
@@ -451,4 +508,5 @@ public partial class Shop : System.Web.UI.Page
     }
 
 
+    
 }

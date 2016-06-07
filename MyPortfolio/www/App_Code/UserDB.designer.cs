@@ -32,15 +32,9 @@ public partial class UserDBDataContext : System.Data.Linq.DataContext
   partial void Insertrestaurant(restaurant instance);
   partial void Updaterestaurant(restaurant instance);
   partial void Deleterestaurant(restaurant instance);
-  partial void Insertproduct(product instance);
-  partial void Updateproduct(product instance);
-  partial void Deleteproduct(product instance);
   partial void InsertordAndLine(ordAndLine instance);
   partial void UpdateordAndLine(ordAndLine instance);
   partial void DeleteordAndLine(ordAndLine instance);
-  partial void InsertorderLine(orderLine instance);
-  partial void UpdateorderLine(orderLine instance);
-  partial void DeleteorderLine(orderLine instance);
   partial void Insert_User(_User instance);
   partial void Update_User(_User instance);
   partial void Delete_User(_User instance);
@@ -50,6 +44,12 @@ public partial class UserDBDataContext : System.Data.Linq.DataContext
   partial void InsertContact(Contact instance);
   partial void UpdateContact(Contact instance);
   partial void DeleteContact(Contact instance);
+  partial void InsertorderLine(orderLine instance);
+  partial void UpdateorderLine(orderLine instance);
+  partial void DeleteorderLine(orderLine instance);
+  partial void Insertproduct(product instance);
+  partial void Updateproduct(product instance);
+  partial void Deleteproduct(product instance);
   #endregion
 	
 	public UserDBDataContext() : 
@@ -90,27 +90,11 @@ public partial class UserDBDataContext : System.Data.Linq.DataContext
 		}
 	}
 	
-	public System.Data.Linq.Table<product> products
-	{
-		get
-		{
-			return this.GetTable<product>();
-		}
-	}
-	
 	public System.Data.Linq.Table<ordAndLine> ordAndLines
 	{
 		get
 		{
 			return this.GetTable<ordAndLine>();
-		}
-	}
-	
-	public System.Data.Linq.Table<orderLine> orderLines
-	{
-		get
-		{
-			return this.GetTable<orderLine>();
 		}
 	}
 	
@@ -135,6 +119,22 @@ public partial class UserDBDataContext : System.Data.Linq.DataContext
 		get
 		{
 			return this.GetTable<Contact>();
+		}
+	}
+	
+	public System.Data.Linq.Table<orderLine> orderLines
+	{
+		get
+		{
+			return this.GetTable<orderLine>();
+		}
+	}
+	
+	public System.Data.Linq.Table<product> products
+	{
+		get
+		{
+			return this.GetTable<product>();
 		}
 	}
 }
@@ -301,401 +301,6 @@ public partial class restaurant : INotifyPropertyChanging, INotifyPropertyChange
 	}
 }
 
-[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.product")]
-public partial class product : INotifyPropertyChanging, INotifyPropertyChanged
-{
-	
-	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-	
-	private int _id;
-	
-	private string _content;
-	
-	private System.Nullable<decimal> _protein;
-	
-	private System.Nullable<decimal> _carbs;
-	
-	private System.Nullable<decimal> _fat;
-	
-	private System.Nullable<int> _resId;
-	
-	private string _name;
-	
-	private System.Nullable<decimal> _price;
-	
-	private System.Nullable<int> _ordered;
-	
-	private System.Nullable<decimal> _totalCalories;
-	
-	private System.Data.Linq.Binary _photo;
-	
-	private string _fGroup;
-	
-	private EntitySet<orderLine> _orderLines;
-	
-	private EntityRef<restaurant> _restaurant;
-	
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnidChanging(int value);
-    partial void OnidChanged();
-    partial void OncontentChanging(string value);
-    partial void OncontentChanged();
-    partial void OnproteinChanging(System.Nullable<decimal> value);
-    partial void OnproteinChanged();
-    partial void OncarbsChanging(System.Nullable<decimal> value);
-    partial void OncarbsChanged();
-    partial void OnfatChanging(System.Nullable<decimal> value);
-    partial void OnfatChanged();
-    partial void OnresIdChanging(System.Nullable<int> value);
-    partial void OnresIdChanged();
-    partial void OnnameChanging(string value);
-    partial void OnnameChanged();
-    partial void OnpriceChanging(System.Nullable<decimal> value);
-    partial void OnpriceChanged();
-    partial void OnorderedChanging(System.Nullable<int> value);
-    partial void OnorderedChanged();
-    partial void OntotalCaloriesChanging(System.Nullable<decimal> value);
-    partial void OntotalCaloriesChanged();
-    partial void OnphotoChanging(System.Data.Linq.Binary value);
-    partial void OnphotoChanged();
-    partial void OnfGroupChanging(string value);
-    partial void OnfGroupChanged();
-    #endregion
-	
-	public product()
-	{
-		this._orderLines = new EntitySet<orderLine>(new Action<orderLine>(this.attach_orderLines), new Action<orderLine>(this.detach_orderLines));
-		this._restaurant = default(EntityRef<restaurant>);
-		OnCreated();
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-	public int id
-	{
-		get
-		{
-			return this._id;
-		}
-		set
-		{
-			if ((this._id != value))
-			{
-				this.OnidChanging(value);
-				this.SendPropertyChanging();
-				this._id = value;
-				this.SendPropertyChanged("id");
-				this.OnidChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_content", DbType="VarChar(MAX)")]
-	public string content
-	{
-		get
-		{
-			return this._content;
-		}
-		set
-		{
-			if ((this._content != value))
-			{
-				this.OncontentChanging(value);
-				this.SendPropertyChanging();
-				this._content = value;
-				this.SendPropertyChanged("content");
-				this.OncontentChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_protein", DbType="Decimal(10,2)")]
-	public System.Nullable<decimal> protein
-	{
-		get
-		{
-			return this._protein;
-		}
-		set
-		{
-			if ((this._protein != value))
-			{
-				this.OnproteinChanging(value);
-				this.SendPropertyChanging();
-				this._protein = value;
-				this.SendPropertyChanged("protein");
-				this.OnproteinChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_carbs", DbType="Decimal(10,2)")]
-	public System.Nullable<decimal> carbs
-	{
-		get
-		{
-			return this._carbs;
-		}
-		set
-		{
-			if ((this._carbs != value))
-			{
-				this.OncarbsChanging(value);
-				this.SendPropertyChanging();
-				this._carbs = value;
-				this.SendPropertyChanged("carbs");
-				this.OncarbsChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_fat", DbType="Decimal(10,2)")]
-	public System.Nullable<decimal> fat
-	{
-		get
-		{
-			return this._fat;
-		}
-		set
-		{
-			if ((this._fat != value))
-			{
-				this.OnfatChanging(value);
-				this.SendPropertyChanging();
-				this._fat = value;
-				this.SendPropertyChanged("fat");
-				this.OnfatChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_resId", DbType="Int")]
-	public System.Nullable<int> resId
-	{
-		get
-		{
-			return this._resId;
-		}
-		set
-		{
-			if ((this._resId != value))
-			{
-				if (this._restaurant.HasLoadedOrAssignedValue)
-				{
-					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-				}
-				this.OnresIdChanging(value);
-				this.SendPropertyChanging();
-				this._resId = value;
-				this.SendPropertyChanged("resId");
-				this.OnresIdChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_name", DbType="VarChar(50)")]
-	public string name
-	{
-		get
-		{
-			return this._name;
-		}
-		set
-		{
-			if ((this._name != value))
-			{
-				this.OnnameChanging(value);
-				this.SendPropertyChanging();
-				this._name = value;
-				this.SendPropertyChanged("name");
-				this.OnnameChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_price", DbType="Decimal(10,2)")]
-	public System.Nullable<decimal> price
-	{
-		get
-		{
-			return this._price;
-		}
-		set
-		{
-			if ((this._price != value))
-			{
-				this.OnpriceChanging(value);
-				this.SendPropertyChanging();
-				this._price = value;
-				this.SendPropertyChanged("price");
-				this.OnpriceChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ordered", DbType="Int")]
-	public System.Nullable<int> ordered
-	{
-		get
-		{
-			return this._ordered;
-		}
-		set
-		{
-			if ((this._ordered != value))
-			{
-				this.OnorderedChanging(value);
-				this.SendPropertyChanging();
-				this._ordered = value;
-				this.SendPropertyChanged("ordered");
-				this.OnorderedChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_totalCalories", AutoSync=AutoSync.Always, DbType="Decimal(14,2)", IsDbGenerated=true, UpdateCheck=UpdateCheck.Never)]
-	public System.Nullable<decimal> totalCalories
-	{
-		get
-		{
-			return this._totalCalories;
-		}
-		set
-		{
-			if ((this._totalCalories != value))
-			{
-				this.OntotalCaloriesChanging(value);
-				this.SendPropertyChanging();
-				this._totalCalories = value;
-				this.SendPropertyChanged("totalCalories");
-				this.OntotalCaloriesChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_photo", DbType="Image", UpdateCheck=UpdateCheck.Never)]
-	public System.Data.Linq.Binary photo
-	{
-		get
-		{
-			return this._photo;
-		}
-		set
-		{
-			if ((this._photo != value))
-			{
-				this.OnphotoChanging(value);
-				this.SendPropertyChanging();
-				this._photo = value;
-				this.SendPropertyChanged("photo");
-				this.OnphotoChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_fGroup", DbType="VarChar(50)")]
-	public string fGroup
-	{
-		get
-		{
-			return this._fGroup;
-		}
-		set
-		{
-			if ((this._fGroup != value))
-			{
-				this.OnfGroupChanging(value);
-				this.SendPropertyChanging();
-				this._fGroup = value;
-				this.SendPropertyChanged("fGroup");
-				this.OnfGroupChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="product_orderLine", Storage="_orderLines", ThisKey="id", OtherKey="prodId")]
-	public EntitySet<orderLine> orderLines
-	{
-		get
-		{
-			return this._orderLines;
-		}
-		set
-		{
-			this._orderLines.Assign(value);
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="restaurant_product", Storage="_restaurant", ThisKey="resId", OtherKey="id", IsForeignKey=true)]
-	public restaurant restaurant
-	{
-		get
-		{
-			return this._restaurant.Entity;
-		}
-		set
-		{
-			restaurant previousValue = this._restaurant.Entity;
-			if (((previousValue != value) 
-						|| (this._restaurant.HasLoadedOrAssignedValue == false)))
-			{
-				this.SendPropertyChanging();
-				if ((previousValue != null))
-				{
-					this._restaurant.Entity = null;
-					previousValue.products.Remove(this);
-				}
-				this._restaurant.Entity = value;
-				if ((value != null))
-				{
-					value.products.Add(this);
-					this._resId = value.id;
-				}
-				else
-				{
-					this._resId = default(Nullable<int>);
-				}
-				this.SendPropertyChanged("restaurant");
-			}
-		}
-	}
-	
-	public event PropertyChangingEventHandler PropertyChanging;
-	
-	public event PropertyChangedEventHandler PropertyChanged;
-	
-	protected virtual void SendPropertyChanging()
-	{
-		if ((this.PropertyChanging != null))
-		{
-			this.PropertyChanging(this, emptyChangingEventArgs);
-		}
-	}
-	
-	protected virtual void SendPropertyChanged(String propertyName)
-	{
-		if ((this.PropertyChanged != null))
-		{
-			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-		}
-	}
-	
-	private void attach_orderLines(orderLine entity)
-	{
-		this.SendPropertyChanging();
-		entity.product = this;
-	}
-	
-	private void detach_orderLines(orderLine entity)
-	{
-		this.SendPropertyChanging();
-		entity.product = null;
-	}
-}
-
 [global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ordAndLine")]
 public partial class ordAndLine : INotifyPropertyChanging, INotifyPropertyChanged
 {
@@ -708,9 +313,9 @@ public partial class ordAndLine : INotifyPropertyChanging, INotifyPropertyChange
 	
 	private System.Nullable<int> _orderLineId;
 	
-	private EntityRef<orderLine> _orderLine;
-	
 	private EntityRef<order> _order;
+	
+	private EntityRef<orderLine> _orderLine;
 	
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -726,8 +331,8 @@ public partial class ordAndLine : INotifyPropertyChanging, INotifyPropertyChange
 	
 	public ordAndLine()
 	{
-		this._orderLine = default(EntityRef<orderLine>);
 		this._order = default(EntityRef<order>);
+		this._orderLine = default(EntityRef<orderLine>);
 		OnCreated();
 	}
 	
@@ -799,40 +404,6 @@ public partial class ordAndLine : INotifyPropertyChanging, INotifyPropertyChange
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="orderLine_ordAndLine", Storage="_orderLine", ThisKey="orderLineId", OtherKey="id", IsForeignKey=true)]
-	public orderLine orderLine
-	{
-		get
-		{
-			return this._orderLine.Entity;
-		}
-		set
-		{
-			orderLine previousValue = this._orderLine.Entity;
-			if (((previousValue != value) 
-						|| (this._orderLine.HasLoadedOrAssignedValue == false)))
-			{
-				this.SendPropertyChanging();
-				if ((previousValue != null))
-				{
-					this._orderLine.Entity = null;
-					previousValue.ordAndLines.Remove(this);
-				}
-				this._orderLine.Entity = value;
-				if ((value != null))
-				{
-					value.ordAndLines.Add(this);
-					this._orderLineId = value.id;
-				}
-				else
-				{
-					this._orderLineId = default(Nullable<int>);
-				}
-				this.SendPropertyChanged("orderLine");
-			}
-		}
-	}
-	
 	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="order_ordAndLine", Storage="_order", ThisKey="orderId", OtherKey="id", IsForeignKey=true)]
 	public order order
 	{
@@ -867,145 +438,36 @@ public partial class ordAndLine : INotifyPropertyChanging, INotifyPropertyChange
 		}
 	}
 	
-	public event PropertyChangingEventHandler PropertyChanging;
-	
-	public event PropertyChangedEventHandler PropertyChanged;
-	
-	protected virtual void SendPropertyChanging()
-	{
-		if ((this.PropertyChanging != null))
-		{
-			this.PropertyChanging(this, emptyChangingEventArgs);
-		}
-	}
-	
-	protected virtual void SendPropertyChanged(String propertyName)
-	{
-		if ((this.PropertyChanged != null))
-		{
-			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-		}
-	}
-}
-
-[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.orderLine")]
-public partial class orderLine : INotifyPropertyChanging, INotifyPropertyChanged
-{
-	
-	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-	
-	private int _id;
-	
-	private System.Nullable<int> _prodId;
-	
-	private EntitySet<ordAndLine> _ordAndLines;
-	
-	private EntityRef<product> _product;
-	
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnidChanging(int value);
-    partial void OnidChanged();
-    partial void OnprodIdChanging(System.Nullable<int> value);
-    partial void OnprodIdChanged();
-    #endregion
-	
-	public orderLine()
-	{
-		this._ordAndLines = new EntitySet<ordAndLine>(new Action<ordAndLine>(this.attach_ordAndLines), new Action<ordAndLine>(this.detach_ordAndLines));
-		this._product = default(EntityRef<product>);
-		OnCreated();
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", DbType="Int NOT NULL", IsPrimaryKey=true)]
-	public int id
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="orderLine_ordAndLine", Storage="_orderLine", ThisKey="orderLineId", OtherKey="id", IsForeignKey=true)]
+	public orderLine orderLine
 	{
 		get
 		{
-			return this._id;
+			return this._orderLine.Entity;
 		}
 		set
 		{
-			if ((this._id != value))
-			{
-				this.OnidChanging(value);
-				this.SendPropertyChanging();
-				this._id = value;
-				this.SendPropertyChanged("id");
-				this.OnidChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_prodId", DbType="Int")]
-	public System.Nullable<int> prodId
-	{
-		get
-		{
-			return this._prodId;
-		}
-		set
-		{
-			if ((this._prodId != value))
-			{
-				if (this._product.HasLoadedOrAssignedValue)
-				{
-					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-				}
-				this.OnprodIdChanging(value);
-				this.SendPropertyChanging();
-				this._prodId = value;
-				this.SendPropertyChanged("prodId");
-				this.OnprodIdChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="orderLine_ordAndLine", Storage="_ordAndLines", ThisKey="id", OtherKey="orderLineId")]
-	public EntitySet<ordAndLine> ordAndLines
-	{
-		get
-		{
-			return this._ordAndLines;
-		}
-		set
-		{
-			this._ordAndLines.Assign(value);
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="product_orderLine", Storage="_product", ThisKey="prodId", OtherKey="id", IsForeignKey=true)]
-	public product product
-	{
-		get
-		{
-			return this._product.Entity;
-		}
-		set
-		{
-			product previousValue = this._product.Entity;
+			orderLine previousValue = this._orderLine.Entity;
 			if (((previousValue != value) 
-						|| (this._product.HasLoadedOrAssignedValue == false)))
+						|| (this._orderLine.HasLoadedOrAssignedValue == false)))
 			{
 				this.SendPropertyChanging();
 				if ((previousValue != null))
 				{
-					this._product.Entity = null;
-					previousValue.orderLines.Remove(this);
+					this._orderLine.Entity = null;
+					previousValue.ordAndLines.Remove(this);
 				}
-				this._product.Entity = value;
+				this._orderLine.Entity = value;
 				if ((value != null))
 				{
-					value.orderLines.Add(this);
-					this._prodId = value.id;
+					value.ordAndLines.Add(this);
+					this._orderLineId = value.id;
 				}
 				else
 				{
-					this._prodId = default(Nullable<int>);
+					this._orderLineId = default(Nullable<int>);
 				}
-				this.SendPropertyChanged("product");
+				this.SendPropertyChanged("orderLine");
 			}
 		}
 	}
@@ -1028,18 +490,6 @@ public partial class orderLine : INotifyPropertyChanging, INotifyPropertyChanged
 		{
 			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 		}
-	}
-	
-	private void attach_ordAndLines(ordAndLine entity)
-	{
-		this.SendPropertyChanging();
-		entity.orderLine = this;
-	}
-	
-	private void detach_ordAndLines(ordAndLine entity)
-	{
-		this.SendPropertyChanging();
-		entity.orderLine = null;
 	}
 }
 
@@ -1800,6 +1250,604 @@ public partial class Contact : INotifyPropertyChanging, INotifyPropertyChanged
 		{
 			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 		}
+	}
+}
+
+[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.orderLine")]
+public partial class orderLine : INotifyPropertyChanging, INotifyPropertyChanged
+{
+	
+	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+	
+	private int _id;
+	
+	private System.Nullable<int> _prodId;
+	
+	private System.Nullable<int> _quantity;
+	
+	private EntitySet<ordAndLine> _ordAndLines;
+	
+	private EntityRef<product> _product;
+	
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidChanging(int value);
+    partial void OnidChanged();
+    partial void OnprodIdChanging(System.Nullable<int> value);
+    partial void OnprodIdChanged();
+    partial void OnquantityChanging(System.Nullable<int> value);
+    partial void OnquantityChanged();
+    #endregion
+	
+	public orderLine()
+	{
+		this._ordAndLines = new EntitySet<ordAndLine>(new Action<ordAndLine>(this.attach_ordAndLines), new Action<ordAndLine>(this.detach_ordAndLines));
+		this._product = default(EntityRef<product>);
+		OnCreated();
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", DbType="Int NOT NULL", IsPrimaryKey=true)]
+	public int id
+	{
+		get
+		{
+			return this._id;
+		}
+		set
+		{
+			if ((this._id != value))
+			{
+				this.OnidChanging(value);
+				this.SendPropertyChanging();
+				this._id = value;
+				this.SendPropertyChanged("id");
+				this.OnidChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_prodId", DbType="Int")]
+	public System.Nullable<int> prodId
+	{
+		get
+		{
+			return this._prodId;
+		}
+		set
+		{
+			if ((this._prodId != value))
+			{
+				if (this._product.HasLoadedOrAssignedValue)
+				{
+					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+				}
+				this.OnprodIdChanging(value);
+				this.SendPropertyChanging();
+				this._prodId = value;
+				this.SendPropertyChanged("prodId");
+				this.OnprodIdChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_quantity", DbType="Int")]
+	public System.Nullable<int> quantity
+	{
+		get
+		{
+			return this._quantity;
+		}
+		set
+		{
+			if ((this._quantity != value))
+			{
+				this.OnquantityChanging(value);
+				this.SendPropertyChanging();
+				this._quantity = value;
+				this.SendPropertyChanged("quantity");
+				this.OnquantityChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="orderLine_ordAndLine", Storage="_ordAndLines", ThisKey="id", OtherKey="orderLineId")]
+	public EntitySet<ordAndLine> ordAndLines
+	{
+		get
+		{
+			return this._ordAndLines;
+		}
+		set
+		{
+			this._ordAndLines.Assign(value);
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="product_orderLine", Storage="_product", ThisKey="prodId", OtherKey="id", IsForeignKey=true)]
+	public product product
+	{
+		get
+		{
+			return this._product.Entity;
+		}
+		set
+		{
+			product previousValue = this._product.Entity;
+			if (((previousValue != value) 
+						|| (this._product.HasLoadedOrAssignedValue == false)))
+			{
+				this.SendPropertyChanging();
+				if ((previousValue != null))
+				{
+					this._product.Entity = null;
+					previousValue.orderLines.Remove(this);
+				}
+				this._product.Entity = value;
+				if ((value != null))
+				{
+					value.orderLines.Add(this);
+					this._prodId = value.id;
+				}
+				else
+				{
+					this._prodId = default(Nullable<int>);
+				}
+				this.SendPropertyChanged("product");
+			}
+		}
+	}
+	
+	public event PropertyChangingEventHandler PropertyChanging;
+	
+	public event PropertyChangedEventHandler PropertyChanged;
+	
+	protected virtual void SendPropertyChanging()
+	{
+		if ((this.PropertyChanging != null))
+		{
+			this.PropertyChanging(this, emptyChangingEventArgs);
+		}
+	}
+	
+	protected virtual void SendPropertyChanged(String propertyName)
+	{
+		if ((this.PropertyChanged != null))
+		{
+			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+		}
+	}
+	
+	private void attach_ordAndLines(ordAndLine entity)
+	{
+		this.SendPropertyChanging();
+		entity.orderLine = this;
+	}
+	
+	private void detach_ordAndLines(ordAndLine entity)
+	{
+		this.SendPropertyChanging();
+		entity.orderLine = null;
+	}
+}
+
+[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.product")]
+public partial class product : INotifyPropertyChanging, INotifyPropertyChanged
+{
+	
+	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+	
+	private int _id;
+	
+	private string _content;
+	
+	private System.Nullable<decimal> _protein;
+	
+	private System.Nullable<decimal> _carbs;
+	
+	private System.Nullable<decimal> _fat;
+	
+	private System.Nullable<int> _resId;
+	
+	private string _name;
+	
+	private System.Nullable<decimal> _price;
+	
+	private System.Nullable<int> _ordered;
+	
+	private System.Nullable<decimal> _totalCalories;
+	
+	private System.Data.Linq.Binary _photo;
+	
+	private string _fGroup;
+	
+	private System.Nullable<int> _stock;
+	
+	private EntitySet<orderLine> _orderLines;
+	
+	private EntityRef<restaurant> _restaurant;
+	
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidChanging(int value);
+    partial void OnidChanged();
+    partial void OncontentChanging(string value);
+    partial void OncontentChanged();
+    partial void OnproteinChanging(System.Nullable<decimal> value);
+    partial void OnproteinChanged();
+    partial void OncarbsChanging(System.Nullable<decimal> value);
+    partial void OncarbsChanged();
+    partial void OnfatChanging(System.Nullable<decimal> value);
+    partial void OnfatChanged();
+    partial void OnresIdChanging(System.Nullable<int> value);
+    partial void OnresIdChanged();
+    partial void OnnameChanging(string value);
+    partial void OnnameChanged();
+    partial void OnpriceChanging(System.Nullable<decimal> value);
+    partial void OnpriceChanged();
+    partial void OnorderedChanging(System.Nullable<int> value);
+    partial void OnorderedChanged();
+    partial void OntotalCaloriesChanging(System.Nullable<decimal> value);
+    partial void OntotalCaloriesChanged();
+    partial void OnphotoChanging(System.Data.Linq.Binary value);
+    partial void OnphotoChanged();
+    partial void OnfGroupChanging(string value);
+    partial void OnfGroupChanged();
+    partial void OnstockChanging(System.Nullable<int> value);
+    partial void OnstockChanged();
+    #endregion
+	
+	public product()
+	{
+		this._orderLines = new EntitySet<orderLine>(new Action<orderLine>(this.attach_orderLines), new Action<orderLine>(this.detach_orderLines));
+		this._restaurant = default(EntityRef<restaurant>);
+		OnCreated();
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+	public int id
+	{
+		get
+		{
+			return this._id;
+		}
+		set
+		{
+			if ((this._id != value))
+			{
+				this.OnidChanging(value);
+				this.SendPropertyChanging();
+				this._id = value;
+				this.SendPropertyChanged("id");
+				this.OnidChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_content", DbType="VarChar(MAX)")]
+	public string content
+	{
+		get
+		{
+			return this._content;
+		}
+		set
+		{
+			if ((this._content != value))
+			{
+				this.OncontentChanging(value);
+				this.SendPropertyChanging();
+				this._content = value;
+				this.SendPropertyChanged("content");
+				this.OncontentChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_protein", DbType="Decimal(10,2)")]
+	public System.Nullable<decimal> protein
+	{
+		get
+		{
+			return this._protein;
+		}
+		set
+		{
+			if ((this._protein != value))
+			{
+				this.OnproteinChanging(value);
+				this.SendPropertyChanging();
+				this._protein = value;
+				this.SendPropertyChanged("protein");
+				this.OnproteinChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_carbs", DbType="Decimal(10,2)")]
+	public System.Nullable<decimal> carbs
+	{
+		get
+		{
+			return this._carbs;
+		}
+		set
+		{
+			if ((this._carbs != value))
+			{
+				this.OncarbsChanging(value);
+				this.SendPropertyChanging();
+				this._carbs = value;
+				this.SendPropertyChanged("carbs");
+				this.OncarbsChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_fat", DbType="Decimal(10,2)")]
+	public System.Nullable<decimal> fat
+	{
+		get
+		{
+			return this._fat;
+		}
+		set
+		{
+			if ((this._fat != value))
+			{
+				this.OnfatChanging(value);
+				this.SendPropertyChanging();
+				this._fat = value;
+				this.SendPropertyChanged("fat");
+				this.OnfatChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_resId", DbType="Int")]
+	public System.Nullable<int> resId
+	{
+		get
+		{
+			return this._resId;
+		}
+		set
+		{
+			if ((this._resId != value))
+			{
+				if (this._restaurant.HasLoadedOrAssignedValue)
+				{
+					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+				}
+				this.OnresIdChanging(value);
+				this.SendPropertyChanging();
+				this._resId = value;
+				this.SendPropertyChanged("resId");
+				this.OnresIdChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_name", DbType="VarChar(50)")]
+	public string name
+	{
+		get
+		{
+			return this._name;
+		}
+		set
+		{
+			if ((this._name != value))
+			{
+				this.OnnameChanging(value);
+				this.SendPropertyChanging();
+				this._name = value;
+				this.SendPropertyChanged("name");
+				this.OnnameChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_price", DbType="Decimal(10,2)")]
+	public System.Nullable<decimal> price
+	{
+		get
+		{
+			return this._price;
+		}
+		set
+		{
+			if ((this._price != value))
+			{
+				this.OnpriceChanging(value);
+				this.SendPropertyChanging();
+				this._price = value;
+				this.SendPropertyChanged("price");
+				this.OnpriceChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ordered", DbType="Int")]
+	public System.Nullable<int> ordered
+	{
+		get
+		{
+			return this._ordered;
+		}
+		set
+		{
+			if ((this._ordered != value))
+			{
+				this.OnorderedChanging(value);
+				this.SendPropertyChanging();
+				this._ordered = value;
+				this.SendPropertyChanged("ordered");
+				this.OnorderedChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_totalCalories", AutoSync=AutoSync.Always, DbType="Decimal(14,2)", IsDbGenerated=true, UpdateCheck=UpdateCheck.Never)]
+	public System.Nullable<decimal> totalCalories
+	{
+		get
+		{
+			return this._totalCalories;
+		}
+		set
+		{
+			if ((this._totalCalories != value))
+			{
+				this.OntotalCaloriesChanging(value);
+				this.SendPropertyChanging();
+				this._totalCalories = value;
+				this.SendPropertyChanged("totalCalories");
+				this.OntotalCaloriesChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_photo", DbType="Image", UpdateCheck=UpdateCheck.Never)]
+	public System.Data.Linq.Binary photo
+	{
+		get
+		{
+			return this._photo;
+		}
+		set
+		{
+			if ((this._photo != value))
+			{
+				this.OnphotoChanging(value);
+				this.SendPropertyChanging();
+				this._photo = value;
+				this.SendPropertyChanged("photo");
+				this.OnphotoChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_fGroup", DbType="VarChar(50)")]
+	public string fGroup
+	{
+		get
+		{
+			return this._fGroup;
+		}
+		set
+		{
+			if ((this._fGroup != value))
+			{
+				this.OnfGroupChanging(value);
+				this.SendPropertyChanging();
+				this._fGroup = value;
+				this.SendPropertyChanged("fGroup");
+				this.OnfGroupChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_stock", DbType="Int")]
+	public System.Nullable<int> stock
+	{
+		get
+		{
+			return this._stock;
+		}
+		set
+		{
+			if ((this._stock != value))
+			{
+				this.OnstockChanging(value);
+				this.SendPropertyChanging();
+				this._stock = value;
+				this.SendPropertyChanged("stock");
+				this.OnstockChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="product_orderLine", Storage="_orderLines", ThisKey="id", OtherKey="prodId")]
+	public EntitySet<orderLine> orderLines
+	{
+		get
+		{
+			return this._orderLines;
+		}
+		set
+		{
+			this._orderLines.Assign(value);
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="restaurant_product", Storage="_restaurant", ThisKey="resId", OtherKey="id", IsForeignKey=true)]
+	public restaurant restaurant
+	{
+		get
+		{
+			return this._restaurant.Entity;
+		}
+		set
+		{
+			restaurant previousValue = this._restaurant.Entity;
+			if (((previousValue != value) 
+						|| (this._restaurant.HasLoadedOrAssignedValue == false)))
+			{
+				this.SendPropertyChanging();
+				if ((previousValue != null))
+				{
+					this._restaurant.Entity = null;
+					previousValue.products.Remove(this);
+				}
+				this._restaurant.Entity = value;
+				if ((value != null))
+				{
+					value.products.Add(this);
+					this._resId = value.id;
+				}
+				else
+				{
+					this._resId = default(Nullable<int>);
+				}
+				this.SendPropertyChanged("restaurant");
+			}
+		}
+	}
+	
+	public event PropertyChangingEventHandler PropertyChanging;
+	
+	public event PropertyChangedEventHandler PropertyChanged;
+	
+	protected virtual void SendPropertyChanging()
+	{
+		if ((this.PropertyChanging != null))
+		{
+			this.PropertyChanging(this, emptyChangingEventArgs);
+		}
+	}
+	
+	protected virtual void SendPropertyChanged(String propertyName)
+	{
+		if ((this.PropertyChanged != null))
+		{
+			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+		}
+	}
+	
+	private void attach_orderLines(orderLine entity)
+	{
+		this.SendPropertyChanging();
+		entity.product = this;
+	}
+	
+	private void detach_orderLines(orderLine entity)
+	{
+		this.SendPropertyChanging();
+		entity.product = null;
 	}
 }
 #pragma warning restore 1591

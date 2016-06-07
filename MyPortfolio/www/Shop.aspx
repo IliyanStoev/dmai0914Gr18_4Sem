@@ -56,6 +56,15 @@
                             ImageUrl='<%#"data:Image/png;base64," + Convert.ToBase64String(((System.Data.Linq.Binary)Eval("photo")).ToArray()) %>' />
                     </ItemTemplate>
                 </asp:TemplateField>
+                <asp:TemplateField>
+                    <ItemTemplate>
+                        <asp:DropDownList runat="server" ID="quantDd">
+                            <asp:ListItem Value="1"></asp:ListItem>
+                            <asp:ListItem Value="2"></asp:ListItem>
+                            <asp:ListItem Value="3"></asp:ListItem>
+                        </asp:DropDownList>
+                    </ItemTemplate>
+                </asp:TemplateField>
 
 
                 <asp:ButtonField ButtonType="Button" Text="Add To Cart" CommandName="Add To Cart" />
@@ -76,6 +85,7 @@
                 <asp:BoundField HeaderText="Fat"/>
                 <asp:BoundField HeaderText="Product Calories"/>
                 <asp:BoundField HeaderText="Price"/>
+                <asp:BoundField HeaderText="Quantity" DataField="quantity"/>
 
 
                 <asp:ButtonField ButtonType="Button" Text="Remove" CommandName="Remove" />

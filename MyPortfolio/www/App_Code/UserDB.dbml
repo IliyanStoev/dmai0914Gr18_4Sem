@@ -9,39 +9,13 @@
       <Association Name="restaurant_product" Member="products" ThisKey="id" OtherKey="resId" Type="product" />
     </Type>
   </Table>
-  <Table Name="dbo.product" Member="products">
-    <Type Name="product">
-      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="content" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
-      <Column Name="protein" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
-      <Column Name="carbs" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
-      <Column Name="fat" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
-      <Column Name="resId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="price" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
-      <Column Name="ordered" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="totalCalories" Type="System.Decimal" DbType="Decimal(14,2)" IsDbGenerated="true" CanBeNull="true" UpdateCheck="Never" />
-      <Column Name="photo" Type="System.Data.Linq.Binary" DbType="Image" CanBeNull="true" UpdateCheck="Never" />
-      <Column Name="fGroup" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Association Name="product_orderLine" Member="orderLines" ThisKey="id" OtherKey="prodId" Type="orderLine" />
-      <Association Name="restaurant_product" Member="restaurant" ThisKey="resId" OtherKey="id" Type="restaurant" IsForeignKey="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.ordAndLine" Member="ordAndLines">
     <Type Name="ordAndLine">
       <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="orderId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="orderLineId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Association Name="orderLine_ordAndLine" Member="orderLine" ThisKey="orderLineId" OtherKey="id" Type="orderLine" IsForeignKey="true" />
       <Association Name="order_ordAndLine" Member="order" ThisKey="orderId" OtherKey="id" Type="order" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.orderLine" Member="orderLines">
-    <Type Name="orderLine">
-      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="prodId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Association Name="orderLine_ordAndLine" Member="ordAndLines" ThisKey="id" OtherKey="orderLineId" Type="ordAndLine" />
-      <Association Name="product_orderLine" Member="product" ThisKey="prodId" OtherKey="id" Type="product" IsForeignKey="true" />
+      <Association Name="orderLine_ordAndLine" Member="orderLine" ThisKey="orderLineId" OtherKey="id" Type="orderLine" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.[_User]" Member="_Users">
@@ -79,6 +53,34 @@
       <Column Name="userId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="[_subject]" Member="_subject" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Association Name="_User_Contact" Member="_User" ThisKey="userId" OtherKey="id" Type="_User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.orderLine" Member="orderLines">
+    <Type Name="orderLine">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="prodId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="orderLine_ordAndLine" Member="ordAndLines" ThisKey="id" OtherKey="orderLineId" Type="ordAndLine" />
+      <Association Name="product_orderLine" Member="product" ThisKey="prodId" OtherKey="id" Type="product" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.product" Member="products">
+    <Type Name="product">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="content" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="protein" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
+      <Column Name="carbs" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
+      <Column Name="fat" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
+      <Column Name="resId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="price" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
+      <Column Name="ordered" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="totalCalories" Type="System.Decimal" DbType="Decimal(14,2)" IsDbGenerated="true" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="photo" Type="System.Data.Linq.Binary" DbType="Image" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="fGroup" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="stock" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="product_orderLine" Member="orderLines" ThisKey="id" OtherKey="prodId" Type="orderLine" />
+      <Association Name="restaurant_product" Member="restaurant" ThisKey="resId" OtherKey="id" Type="restaurant" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>
