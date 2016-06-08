@@ -61,6 +61,9 @@
                 <asp:BoundField HeaderText="Product Total Calories" DataField="totalCalories">
                     <ItemStyle Font-Italic="True" />
                 </asp:BoundField>
+                <asp:BoundField  HeaderText="Product Quantity" DataField="quantity">
+                    <ItemStyle Font-Italic="true"/>
+                    </asp:BoundField>
               
             
 

@@ -80,7 +80,7 @@ public class RestaurantDB : BaseDB
         
     }
 
-    public bool CheckStock(int prodId, int quantity)
+    public product CheckStock(int prodId, int quantity)
     {
         using (System.Transactions.TransactionScope trans2 = new System.Transactions.TransactionScope())
         {
@@ -89,13 +89,13 @@ public class RestaurantDB : BaseDB
             if (prod.stock >= quantity)
             {
                 trans2.Complete();
-                return true;
+                return null;
                 
             }
             else
             {
                 trans2.Complete();
-                return false;
+                return prod;
             }
         }
     }

@@ -315,7 +315,9 @@ public partial class Shop : System.Web.UI.Page
 
     protected void createOrderBtn_Click(object sender, EventArgs e)
     {
-        bool isInStock = false;
+        List<product> productsWoS = new List<product>();
+        //bool isInStock = false;
+        product productWs = null;
 
         OrderCtrl ordCtrl = new OrderCtrl();
         ResCtrl resCtrl = new ResCtrl();
@@ -324,22 +326,29 @@ public partial class Shop : System.Web.UI.Page
         realDouble = Convert.ToDouble(GridView2.FooterRow.Cells[7].Text);
         double totalCals = Convert.ToDouble(GridView2.FooterRow.Cells[6].Text);
 
+        
+
         foreach (orderLine ordL in ordLines)
         {
-            if (resCtrl.CheckStock(Convert.ToInt32(ordL.prodId), Convert.ToInt32(ordL.quantity)))
+
+            productWs = resCtrl.CheckStock(Convert.ToInt32(ordL.prodId), Convert.ToInt32(ordL.quantity));
+
+            //if (resCtrl.CheckStock(Convert.ToInt32(ordL.prodId), Convert.ToInt32(ordL.quantity)) == null)
+            if(productWs == null)
             {
-                isInStock = true;
+                //isInStock = true;
             }
             else 
 
             {
-                isInStock = false;
-                break;
+                //isInStock = false;
+                productsWoS.Add(productWs);
+                //break;
             }
 
             
         }
-        if (isInStock)
+        if (productsWoS.Count == 0)
         {
             int rows = ordCtrl.createOrder(ord.id, DateTime.Now, realDouble, id, adr, totalCals);
         
@@ -386,7 +395,27 @@ public partial class Shop : System.Web.UI.Page
 
         else
         {
-            ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('" + "Some product is out of stock" + "');", true);
+          
+            foreach (product noStockProd in productsWoS)
+            {
+                int productId = noStockProd.id;
+
+                foreach (GridViewRow gVr in GridView2.Rows)
+                {
+                    //int prodId = Convert.ToInt32(GridView2.DataKeys[gvR.RowIndex].Values[1]);
+                    if (Convert.ToInt32(GridView2.DataKeys[gVr.RowIndex].Values[1]) == productId)
+                    {
+                        gVr.BackColor = System.Drawing.Color.Red;
+                      
+                    }
+                    else
+                    {
+
+                    }
+                }
+            }
+            /*string message = "The Stock of the product" + productWs.name + "is not enough" + "/N2" + "Available Stock :" + productWs.stock + "";
+            ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('" + message + "');", true);*/
         }
         
   

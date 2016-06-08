@@ -75,6 +75,7 @@
     </div>
 
     <div>
+        
         <asp:GridView ID="GridView2" runat="server" OnRowCommand="GridView2_RowCommand" AutoGenerateColumns="false" ShowFooter="true" DataKeyNames="id, prodId">
             <Columns>
                 <asp:BoundField HeaderText="OrderLineId" DataField="id" Visible="false"  />

@@ -21,7 +21,7 @@ public class OrdAndLineCtrl
         ordAndLineDb.SaveOrdAndOrdL(ordAndLine);
     }
 
-    public List<product> GetProductsByOrderId(int orderId)
+    public List<ProductsWithQuant> GetProductsByOrderId(int orderId)
     {
         return ordAndLineDb.GetOrderProducts(orderId);
     }

@@ -32,7 +32,7 @@ public partial class OrderHistory : System.Web.UI.Page
             OrderCtrl ordCtrl = new OrderCtrl();
             order ordr = ordCtrl.GetOrderById(ordId);
             OrdAndLineCtrl ordAndLineCtrl = new OrdAndLineCtrl();
-            List<product> products = new List<product>();
+            List<ProductsWithQuant> products = new List<ProductsWithQuant>();
 
             products = ordAndLineCtrl.GetProductsByOrderId(ordId);
 

@@ -46,7 +46,7 @@ public class ResCtrl
          resDb.UpdateProduct2(prodId, quantity);
     }
 
-    public bool CheckStock(int prodId, int quantity)
+    public product CheckStock(int prodId, int quantity)
     {
         return resDb.CheckStock(prodId, quantity);
     }
