@@ -379,6 +379,8 @@ public partial class Shop : System.Web.UI.Page
         {
             ordLines = null;
             ord = null;
+            Session["order"] = null;
+            
             GridView2.DataSource = ordLines;
             GridView2.DataBind();
             Response.Redirect("OrderSucess.aspx");
@@ -405,7 +407,7 @@ public partial class Shop : System.Web.UI.Page
                     //int prodId = Convert.ToInt32(GridView2.DataKeys[gvR.RowIndex].Values[1]);
                     if (Convert.ToInt32(GridView2.DataKeys[gVr.RowIndex].Values[1]) == productId)
                     {
-                        gVr.BackColor = System.Drawing.Color.Red;
+                        gVr.BackColor = System.Drawing.Color.FromArgb(255, 77, 77);
                       
                     }
                     else

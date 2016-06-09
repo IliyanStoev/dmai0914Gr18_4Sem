@@ -24,56 +24,59 @@
      <h2><asp:Label runat="server" ID="lblNoOrd" Visible="false">You have no orders so far</asp:Label></h2>
    
         </div>
-    <div class="container center">
     
-        <asp:GridView ID="GridView1" CellPadding="6" runat="server" GridLines="None" DataKeyNames="Id" OnRowCommand="GridView1_RowCommand" Width="352px" AutoGenerateColumns="False">
+    <div class="container center">
+        <asp:GridView ID="GridView1" CssClass="myGridClass2" HorizontalAlign="left" runat="server" DataKeyNames="Id" OnRowCommand="GridView1_RowCommand" AutoGenerateColumns="False">
             <Columns>
                 <asp:BoundField HeaderText="Id" DataField="id" Visible="false">
-                    <ItemStyle Font-Italic="True" />
+                    
                 </asp:BoundField>
                 <asp:BoundField HeaderText="Order Date" DataField="orderDate">
-                    <ItemStyle Font-Italic="True" />
+                    
                 </asp:BoundField>
                 <asp:BoundField HeaderText="Total Calories" DataField="totalCals" />
-                <asp:BoundField HeaderText="Total" DataField="total" />
+                <asp:BoundField HeaderText="Total" DataField="total" /> 
             
 
 
-                <asp:ButtonField ButtonType="Button" Text="View Details" CommandName="ViewDetails" />
+                <asp:ButtonField ButtonType="Button" Text="View Details" ControlStyle-CssClass="btn btn-info" CommandName="ViewDetails" />
 
 
             </Columns>
         </asp:GridView>
-        </div>
-        <div>
-        <asp:GridView ID="GridView2" CellPadding="6" runat="server" GridLines="None" Width="352px" AutoGenerateColumns="False">
+        
+       
+        <asp:GridView ID="GridView2" CssClass="myGridClass2" HorizontalAlign="right" runat="server" AutoGenerateColumns="False">
             <Columns>
                 
                 <asp:BoundField HeaderText="Product Name" DataField="name">
-                    <ItemStyle Font-Italic="True" />
+                   
                 </asp:BoundField>
                 <asp:BoundField HeaderText="Product Fat" DataField="fat">
-                    <ItemStyle Font-Italic="True" />
+                    
                 </asp:BoundField>
                 <asp:BoundField HeaderText="Product Protein" DataField="protein">
-                    <ItemStyle Font-Italic="True" />
+                   
                 </asp:BoundField>
                 <asp:BoundField HeaderText="Product Total Calories" DataField="totalCalories">
-                    <ItemStyle Font-Italic="True" />
+                  
                 </asp:BoundField>
                 <asp:BoundField  HeaderText="Product Quantity" DataField="quantity">
-                    <ItemStyle Font-Italic="true"/>
+                   
                     </asp:BoundField>
               
             
 
 
-                
+               
 
 
             </Columns>
         </asp:GridView>
-    </div>
+     </div>
+    
+    
+    
 
 </asp:Content>
 

@@ -12,16 +12,23 @@ public class UserCtrl
         TuserDB = new TUserDB();
 	}
 
-    public bool ValidateUser(string userName, string password) 
+    public _User ValidateUser(string userName, string password) 
     {
         _User user = TuserDB.GetUser(userName);
         if (user == null)
         {
-            return false;
+            return null;
         }
         else
         {
-            return user.password == password;
+            if (user.password == password)
+            {
+                return user;
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 
@@ -54,12 +61,8 @@ public class UserCtrl
         TuserDB.UpdateUser(user);
     }
 
-    public void DeleteUser(int id)
-    {
-        _User user = GetUserById(id);
-
-        TuserDB.DeleteUser(user);
-    }
+   
+    
 
     public _User GetUser(string userName)
     {
@@ -77,6 +80,14 @@ public class UserCtrl
     public List<_User> GetAllUsers()
     {
         return TuserDB.GetAllUsers();
+    }
+
+
+    public void SuspendAcc(int id)
+    {
+        _User user = GetUserById(id);
+
+        TuserDB.SuspendAcc(user);
     }
 
    

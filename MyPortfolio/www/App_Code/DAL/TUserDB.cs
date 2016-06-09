@@ -45,13 +45,14 @@ public class TUserDB : BaseDB
 
     }
 
-    public void DeleteUser(_User user)
+ 
+
+    public void SuspendAcc(_User user)
     {
        
-            dataContext._Users.DeleteOnSubmit(user);
-            dataContext.SubmitChanges();
-        
+        var query = "Update _User set acc_Status=0 where id=" + user.id;
+        dataContext.ExecuteCommand(query);
     }
-
+    
    
 }

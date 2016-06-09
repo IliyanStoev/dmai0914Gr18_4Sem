@@ -18,20 +18,6 @@
       <Association Name="orderLine_ordAndLine" Member="orderLine" ThisKey="orderLineId" OtherKey="id" Type="orderLine" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.[_User]" Member="_Users">
-    <Type Name="_User">
-      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="userName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="FirstName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="password" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
-      <Column Name="email" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="LastName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="[_Address]" Member="_Address" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
-      <Column Name="sex" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Association Name="_User_order" Member="orders" ThisKey="id" OtherKey="userId" Type="order" />
-      <Association Name="_User_Contact" Member="Contacts" ThisKey="id" OtherKey="userId" Type="Contact" />
-    </Type>
-  </Table>
   <Table Name="dbo.orders" Member="orders">
     <Type Name="order">
       <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
@@ -81,6 +67,21 @@
       <Column Name="stock" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="product_orderLine" Member="orderLines" ThisKey="id" OtherKey="prodId" Type="orderLine" />
       <Association Name="restaurant_product" Member="restaurant" ThisKey="resId" OtherKey="id" Type="restaurant" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.[_User]" Member="_Users">
+    <Type Name="_User">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="userName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="FirstName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="password" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="email" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="LastName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="[_Address]" Member="_Address" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="sex" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="acc_Status" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="_User_order" Member="orders" ThisKey="id" OtherKey="userId" Type="order" />
+      <Association Name="_User_Contact" Member="Contacts" ThisKey="id" OtherKey="userId" Type="Contact" />
     </Type>
   </Table>
 </Database>

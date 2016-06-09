@@ -21,8 +21,8 @@
         </div>
     </section>
     <div class="center">
-        <h3>
-            <label>Select Restaurant</label></h3>
+        <h2>
+            <label>Please Select Restaurant and Food Category</label></h2>
         <asp:DropDownList ID="resDrop" runat="server" AutoPostBack="true" OnSelectedIndexChanged="resDrop_SelectedIndexChanged" AppendDataBoundItems="true">
             <asp:ListItem>Please Select Restaurant</asp:ListItem>
         </asp:DropDownList>
@@ -35,14 +35,12 @@
     </div>
 
 
-    <div style="margin-left: auto; margin-right: auto; width: 450px;">
-        <asp:GridView ID="GridView1" CellPadding="6" runat="server" OnSelectedIndexChanged="GridView1_SelectedIndexChanged" GridLines="None" OnRowCommand="GridView1_RowCommand" Width="352px" AutoGenerateColumns="False">
+        <div>
+        <asp:GridView ID="GridView1" runat="server" CssClass="myGridClass" OnSelectedIndexChanged="GridView1_SelectedIndexChanged" OnRowCommand="GridView1_RowCommand" AutoGenerateColumns="False">
             <Columns>
                 <asp:BoundField HeaderText="Id" DataField="id">
-                    <ItemStyle Font-Italic="True" />
-                </asp:BoundField>
+                 </asp:BoundField>
                 <asp:BoundField HeaderText="Name" DataField="name">
-                    <ItemStyle Font-Italic="True" />
                 </asp:BoundField>
                 <asp:BoundField HeaderText="Protein" DataField="protein" />
                 <asp:BoundField HeaderText="Carbs" DataField="carbs" />
@@ -52,7 +50,7 @@
                 <asp:BoundField HeaderText="Price" DataField="price" />
                 <asp:TemplateField HeaderText="Image">
                     <ItemTemplate>
-                        <asp:Image ID="myImage" runat="server" Height="100px" Width="100px"
+                        <asp:Image ID="myImage" runat="server" Height="70px" Width="70px"
                             ImageUrl='<%#"data:Image/png;base64," + Convert.ToBase64String(((System.Data.Linq.Binary)Eval("photo")).ToArray()) %>' />
                     </ItemTemplate>
                 </asp:TemplateField>
@@ -67,16 +65,16 @@
                 </asp:TemplateField>
 
 
-                <asp:ButtonField ButtonType="Button" Text="Add To Cart" CommandName="Add To Cart" />
+                <asp:ButtonField ButtonType="Button" ControlStyle-CssClass="btn btn-success" Text="Add To Cart" CommandName="Add To Cart" />
 
 
             </Columns>
         </asp:GridView>
-    </div>
+   </div>
 
     <div>
-        
-        <asp:GridView ID="GridView2" runat="server" OnRowCommand="GridView2_RowCommand" AutoGenerateColumns="false" ShowFooter="true" DataKeyNames="id, prodId">
+        <p></p>
+        <asp:GridView ID="GridView2" CssClass="myGridClass" runat="server" OnRowCommand="GridView2_RowCommand" AutoGenerateColumns="false" ShowFooter="true" FooterStyle-CssClass="myFooterClass" DataKeyNames="id, prodId">
             <Columns>
                 <asp:BoundField HeaderText="OrderLineId" DataField="id" Visible="false"  />
                 <asp:BoundField HeaderText="Product Id" DataField="prodId" Visible="false" />
@@ -89,7 +87,7 @@
                 <asp:BoundField HeaderText="Quantity" DataField="quantity"/>
 
 
-                <asp:ButtonField ButtonType="Button" Text="Remove" CommandName="Remove" />
+                <asp:ButtonField ButtonType="Button" ControlStyle-CssClass="btn btn-success" Text="Remove" CommandName="Remove" />
             </Columns>
         </asp:GridView>
     </div>

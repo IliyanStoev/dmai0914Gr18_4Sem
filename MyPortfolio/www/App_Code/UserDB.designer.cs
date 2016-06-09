@@ -35,9 +35,6 @@ public partial class UserDBDataContext : System.Data.Linq.DataContext
   partial void InsertordAndLine(ordAndLine instance);
   partial void UpdateordAndLine(ordAndLine instance);
   partial void DeleteordAndLine(ordAndLine instance);
-  partial void Insert_User(_User instance);
-  partial void Update_User(_User instance);
-  partial void Delete_User(_User instance);
   partial void Insertorder(order instance);
   partial void Updateorder(order instance);
   partial void Deleteorder(order instance);
@@ -50,6 +47,9 @@ public partial class UserDBDataContext : System.Data.Linq.DataContext
   partial void Insertproduct(product instance);
   partial void Updateproduct(product instance);
   partial void Deleteproduct(product instance);
+  partial void Insert_User(_User instance);
+  partial void Update_User(_User instance);
+  partial void Delete_User(_User instance);
   #endregion
 	
 	public UserDBDataContext() : 
@@ -98,14 +98,6 @@ public partial class UserDBDataContext : System.Data.Linq.DataContext
 		}
 	}
 	
-	public System.Data.Linq.Table<_User> _Users
-	{
-		get
-		{
-			return this.GetTable<_User>();
-		}
-	}
-	
 	public System.Data.Linq.Table<order> orders
 	{
 		get
@@ -135,6 +127,14 @@ public partial class UserDBDataContext : System.Data.Linq.DataContext
 		get
 		{
 			return this.GetTable<product>();
+		}
+	}
+	
+	public System.Data.Linq.Table<_User> _Users
+	{
+		get
+		{
+			return this.GetTable<_User>();
 		}
 	}
 }
@@ -490,292 +490,6 @@ public partial class ordAndLine : INotifyPropertyChanging, INotifyPropertyChange
 		{
 			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 		}
-	}
-}
-
-[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.[_User]")]
-public partial class _User : INotifyPropertyChanging, INotifyPropertyChanged
-{
-	
-	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-	
-	private int _id;
-	
-	private string _userName;
-	
-	private string _FirstName;
-	
-	private string _password;
-	
-	private string _email;
-	
-	private string _LastName;
-	
-	private string @__Address;
-	
-	private string _sex;
-	
-	private EntitySet<order> _orders;
-	
-	private EntitySet<Contact> _Contacts;
-	
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnidChanging(int value);
-    partial void OnidChanged();
-    partial void OnuserNameChanging(string value);
-    partial void OnuserNameChanged();
-    partial void OnFirstNameChanging(string value);
-    partial void OnFirstNameChanged();
-    partial void OnpasswordChanging(string value);
-    partial void OnpasswordChanged();
-    partial void OnemailChanging(string value);
-    partial void OnemailChanged();
-    partial void OnLastNameChanging(string value);
-    partial void OnLastNameChanged();
-    partial void On_AddressChanging(string value);
-    partial void On_AddressChanged();
-    partial void OnsexChanging(string value);
-    partial void OnsexChanged();
-    #endregion
-	
-	public _User()
-	{
-		this._orders = new EntitySet<order>(new Action<order>(this.attach_orders), new Action<order>(this.detach_orders));
-		this._Contacts = new EntitySet<Contact>(new Action<Contact>(this.attach_Contacts), new Action<Contact>(this.detach_Contacts));
-		OnCreated();
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-	public int id
-	{
-		get
-		{
-			return this._id;
-		}
-		set
-		{
-			if ((this._id != value))
-			{
-				this.OnidChanging(value);
-				this.SendPropertyChanging();
-				this._id = value;
-				this.SendPropertyChanged("id");
-				this.OnidChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_userName", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
-	public string userName
-	{
-		get
-		{
-			return this._userName;
-		}
-		set
-		{
-			if ((this._userName != value))
-			{
-				this.OnuserNameChanging(value);
-				this.SendPropertyChanging();
-				this._userName = value;
-				this.SendPropertyChanged("userName");
-				this.OnuserNameChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FirstName", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
-	public string FirstName
-	{
-		get
-		{
-			return this._FirstName;
-		}
-		set
-		{
-			if ((this._FirstName != value))
-			{
-				this.OnFirstNameChanging(value);
-				this.SendPropertyChanging();
-				this._FirstName = value;
-				this.SendPropertyChanged("FirstName");
-				this.OnFirstNameChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_password", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
-	public string password
-	{
-		get
-		{
-			return this._password;
-		}
-		set
-		{
-			if ((this._password != value))
-			{
-				this.OnpasswordChanging(value);
-				this.SendPropertyChanging();
-				this._password = value;
-				this.SendPropertyChanged("password");
-				this.OnpasswordChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_email", DbType="NVarChar(50)")]
-	public string email
-	{
-		get
-		{
-			return this._email;
-		}
-		set
-		{
-			if ((this._email != value))
-			{
-				this.OnemailChanging(value);
-				this.SendPropertyChanging();
-				this._email = value;
-				this.SendPropertyChanged("email");
-				this.OnemailChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LastName", DbType="VarChar(50)")]
-	public string LastName
-	{
-		get
-		{
-			return this._LastName;
-		}
-		set
-		{
-			if ((this._LastName != value))
-			{
-				this.OnLastNameChanging(value);
-				this.SendPropertyChanging();
-				this._LastName = value;
-				this.SendPropertyChanged("LastName");
-				this.OnLastNameChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[_Address]", Storage="__Address", DbType="VarChar(MAX)")]
-	public string _Address
-	{
-		get
-		{
-			return this.@__Address;
-		}
-		set
-		{
-			if ((this.@__Address != value))
-			{
-				this.On_AddressChanging(value);
-				this.SendPropertyChanging();
-				this.@__Address = value;
-				this.SendPropertyChanged("_Address");
-				this.On_AddressChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_sex", DbType="VarChar(50)")]
-	public string sex
-	{
-		get
-		{
-			return this._sex;
-		}
-		set
-		{
-			if ((this._sex != value))
-			{
-				this.OnsexChanging(value);
-				this.SendPropertyChanging();
-				this._sex = value;
-				this.SendPropertyChanged("sex");
-				this.OnsexChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="_User_order", Storage="_orders", ThisKey="id", OtherKey="userId")]
-	public EntitySet<order> orders
-	{
-		get
-		{
-			return this._orders;
-		}
-		set
-		{
-			this._orders.Assign(value);
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="_User_Contact", Storage="_Contacts", ThisKey="id", OtherKey="userId")]
-	public EntitySet<Contact> Contacts
-	{
-		get
-		{
-			return this._Contacts;
-		}
-		set
-		{
-			this._Contacts.Assign(value);
-		}
-	}
-	
-	public event PropertyChangingEventHandler PropertyChanging;
-	
-	public event PropertyChangedEventHandler PropertyChanged;
-	
-	protected virtual void SendPropertyChanging()
-	{
-		if ((this.PropertyChanging != null))
-		{
-			this.PropertyChanging(this, emptyChangingEventArgs);
-		}
-	}
-	
-	protected virtual void SendPropertyChanged(String propertyName)
-	{
-		if ((this.PropertyChanged != null))
-		{
-			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-		}
-	}
-	
-	private void attach_orders(order entity)
-	{
-		this.SendPropertyChanging();
-		entity._User = this;
-	}
-	
-	private void detach_orders(order entity)
-	{
-		this.SendPropertyChanging();
-		entity._User = null;
-	}
-	
-	private void attach_Contacts(Contact entity)
-	{
-		this.SendPropertyChanging();
-		entity._User = this;
-	}
-	
-	private void detach_Contacts(Contact entity)
-	{
-		this.SendPropertyChanging();
-		entity._User = null;
 	}
 }
 
@@ -1848,6 +1562,316 @@ public partial class product : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		this.SendPropertyChanging();
 		entity.product = null;
+	}
+}
+
+[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.[_User]")]
+public partial class _User : INotifyPropertyChanging, INotifyPropertyChanged
+{
+	
+	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+	
+	private int _id;
+	
+	private string _userName;
+	
+	private string _FirstName;
+	
+	private string _password;
+	
+	private string _email;
+	
+	private string _LastName;
+	
+	private string @__Address;
+	
+	private string _sex;
+	
+	private System.Nullable<bool> _acc_Status;
+	
+	private EntitySet<order> _orders;
+	
+	private EntitySet<Contact> _Contacts;
+	
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidChanging(int value);
+    partial void OnidChanged();
+    partial void OnuserNameChanging(string value);
+    partial void OnuserNameChanged();
+    partial void OnFirstNameChanging(string value);
+    partial void OnFirstNameChanged();
+    partial void OnpasswordChanging(string value);
+    partial void OnpasswordChanged();
+    partial void OnemailChanging(string value);
+    partial void OnemailChanged();
+    partial void OnLastNameChanging(string value);
+    partial void OnLastNameChanged();
+    partial void On_AddressChanging(string value);
+    partial void On_AddressChanged();
+    partial void OnsexChanging(string value);
+    partial void OnsexChanged();
+    partial void Onacc_StatusChanging(System.Nullable<bool> value);
+    partial void Onacc_StatusChanged();
+    #endregion
+	
+	public _User()
+	{
+		this._orders = new EntitySet<order>(new Action<order>(this.attach_orders), new Action<order>(this.detach_orders));
+		this._Contacts = new EntitySet<Contact>(new Action<Contact>(this.attach_Contacts), new Action<Contact>(this.detach_Contacts));
+		OnCreated();
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+	public int id
+	{
+		get
+		{
+			return this._id;
+		}
+		set
+		{
+			if ((this._id != value))
+			{
+				this.OnidChanging(value);
+				this.SendPropertyChanging();
+				this._id = value;
+				this.SendPropertyChanged("id");
+				this.OnidChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_userName", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+	public string userName
+	{
+		get
+		{
+			return this._userName;
+		}
+		set
+		{
+			if ((this._userName != value))
+			{
+				this.OnuserNameChanging(value);
+				this.SendPropertyChanging();
+				this._userName = value;
+				this.SendPropertyChanged("userName");
+				this.OnuserNameChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FirstName", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+	public string FirstName
+	{
+		get
+		{
+			return this._FirstName;
+		}
+		set
+		{
+			if ((this._FirstName != value))
+			{
+				this.OnFirstNameChanging(value);
+				this.SendPropertyChanging();
+				this._FirstName = value;
+				this.SendPropertyChanged("FirstName");
+				this.OnFirstNameChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_password", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
+	public string password
+	{
+		get
+		{
+			return this._password;
+		}
+		set
+		{
+			if ((this._password != value))
+			{
+				this.OnpasswordChanging(value);
+				this.SendPropertyChanging();
+				this._password = value;
+				this.SendPropertyChanged("password");
+				this.OnpasswordChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_email", DbType="NVarChar(50)")]
+	public string email
+	{
+		get
+		{
+			return this._email;
+		}
+		set
+		{
+			if ((this._email != value))
+			{
+				this.OnemailChanging(value);
+				this.SendPropertyChanging();
+				this._email = value;
+				this.SendPropertyChanged("email");
+				this.OnemailChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LastName", DbType="VarChar(50)")]
+	public string LastName
+	{
+		get
+		{
+			return this._LastName;
+		}
+		set
+		{
+			if ((this._LastName != value))
+			{
+				this.OnLastNameChanging(value);
+				this.SendPropertyChanging();
+				this._LastName = value;
+				this.SendPropertyChanged("LastName");
+				this.OnLastNameChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[_Address]", Storage="__Address", DbType="VarChar(MAX)")]
+	public string _Address
+	{
+		get
+		{
+			return this.@__Address;
+		}
+		set
+		{
+			if ((this.@__Address != value))
+			{
+				this.On_AddressChanging(value);
+				this.SendPropertyChanging();
+				this.@__Address = value;
+				this.SendPropertyChanged("_Address");
+				this.On_AddressChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_sex", DbType="VarChar(50)")]
+	public string sex
+	{
+		get
+		{
+			return this._sex;
+		}
+		set
+		{
+			if ((this._sex != value))
+			{
+				this.OnsexChanging(value);
+				this.SendPropertyChanging();
+				this._sex = value;
+				this.SendPropertyChanged("sex");
+				this.OnsexChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_acc_Status", DbType="Bit")]
+	public System.Nullable<bool> acc_Status
+	{
+		get
+		{
+			return this._acc_Status;
+		}
+		set
+		{
+			if ((this._acc_Status != value))
+			{
+				this.Onacc_StatusChanging(value);
+				this.SendPropertyChanging();
+				this._acc_Status = value;
+				this.SendPropertyChanged("acc_Status");
+				this.Onacc_StatusChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="_User_order", Storage="_orders", ThisKey="id", OtherKey="userId")]
+	public EntitySet<order> orders
+	{
+		get
+		{
+			return this._orders;
+		}
+		set
+		{
+			this._orders.Assign(value);
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="_User_Contact", Storage="_Contacts", ThisKey="id", OtherKey="userId")]
+	public EntitySet<Contact> Contacts
+	{
+		get
+		{
+			return this._Contacts;
+		}
+		set
+		{
+			this._Contacts.Assign(value);
+		}
+	}
+	
+	public event PropertyChangingEventHandler PropertyChanging;
+	
+	public event PropertyChangedEventHandler PropertyChanged;
+	
+	protected virtual void SendPropertyChanging()
+	{
+		if ((this.PropertyChanging != null))
+		{
+			this.PropertyChanging(this, emptyChangingEventArgs);
+		}
+	}
+	
+	protected virtual void SendPropertyChanged(String propertyName)
+	{
+		if ((this.PropertyChanged != null))
+		{
+			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+		}
+	}
+	
+	private void attach_orders(order entity)
+	{
+		this.SendPropertyChanging();
+		entity._User = this;
+	}
+	
+	private void detach_orders(order entity)
+	{
+		this.SendPropertyChanging();
+		entity._User = null;
+	}
+	
+	private void attach_Contacts(Contact entity)
+	{
+		this.SendPropertyChanging();
+		entity._User = this;
+	}
+	
+	private void detach_Contacts(Contact entity)
+	{
+		this.SendPropertyChanging();
+		entity._User = null;
 	}
 }
 #pragma warning restore 1591

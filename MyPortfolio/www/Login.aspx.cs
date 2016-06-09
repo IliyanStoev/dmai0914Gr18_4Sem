@@ -28,14 +28,23 @@ public partial class Login : SecurityHelper
         PasswordHash psHash = new PasswordHash();
         string loginPass = psHash.GetHashedPassword(password);
 
-        bool validate = userCtrl.ValidateUser(userName, loginPass);
 
-        if (validate)
+        _User user = userCtrl.ValidateUser(userName, loginPass);
+        //bool validate = userCtrl.ValidateUser(userName, loginPass);
+
+        if (user != null)
         {
-            SecurityHelper sch = new SecurityHelper();
-            sch.LogIn(userName, userCtrl.GetUser(userName).id);
-            
-            Response.Redirect("/Home.aspx");
+            if (user.acc_Status != false)
+            {
+                SecurityHelper sch = new SecurityHelper();
+                sch.LogIn(userName, userCtrl.GetUser(userName).id);
+
+                Response.Redirect("/Home.aspx");
+            }
+            else
+            {
+                Response.Redirect("AccSuspended.aspx");
+            }
         }
         else
         {

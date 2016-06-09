@@ -1,6 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MpDefault.master" AutoEventWireup="true" CodeFile="UpdateUser.aspx.cs" Inherits="UpdateUser" EnableEventValidation="false" %>
 <%@ MasterType VirtualPath="~/MpDefault.master" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+  
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
     <section class="title">
@@ -77,7 +78,8 @@
           <!-- Button -->
           <div class="controls">
               <asp:Button class="btn btn-success btn-large" Text="Update" runat="server" OnClick="UpdateUserClick" />
-              <asp:Button class="btn btn-success btn-large" Text="Delete" runat="server" OnClick="DeleteUserClick"/>
+              <asp:Button class="btn btn-success btn-large" Text="Suspend Account" runat="server" OnClick="DeleteUserClick" OnClientClick="return confirm('Are you sure?');"/>
+              
               
             
           </div>
@@ -87,5 +89,6 @@
       
    
   </section>
+    
 </asp:Content>
 

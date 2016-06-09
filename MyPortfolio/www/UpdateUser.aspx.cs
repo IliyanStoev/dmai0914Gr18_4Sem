@@ -105,7 +105,7 @@ public partial class UpdateUser : System.Web.UI.Page
 
         UserCtrl userCtrl = new UserCtrl();
 
-        userCtrl.DeleteUser(id);
+        userCtrl.SuspendAcc(id);
         sch.LogOut();
 
         Response.Redirect("Home.aspx");
