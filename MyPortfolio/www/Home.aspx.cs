@@ -15,6 +15,7 @@ public partial class Home : System.Web.UI.Page
 
         SecurityHelper sch = new SecurityHelper();
         sch.CheckSecurity();
+        
 
         Master.PageID = "Home";
         fill();

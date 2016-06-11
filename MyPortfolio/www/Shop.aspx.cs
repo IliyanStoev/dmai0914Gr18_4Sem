@@ -13,7 +13,7 @@ public partial class Shop : System.Web.UI.Page
     private List<product> prodList = new List<product>();
     private List<orderLine> ordLines;
     private order ord;
-    private List<ordAndLine> ordAndLines;
+    //private List<ordAndLine> ordAndLines;
     //private List<product> newProdList;
 
     private List<double> doubles = new List<double>();
@@ -43,8 +43,8 @@ public partial class Shop : System.Web.UI.Page
 
             Session["myList"] = ordLines;
 
-            ordAndLines = new List<ordAndLine>();
-            Session["myList2"] = ordAndLines;
+            //ordAndLines = new List<ordAndLine>();
+            //Session["myList2"] = ordAndLines;
 
 
             fillDrop();
@@ -58,7 +58,7 @@ public partial class Shop : System.Web.UI.Page
 
             ordLines = (List<orderLine>)Session["myList"];
             ord = (order)Session["order"];
-            ordAndLines = (List<ordAndLine>)Session["myList2"];
+            //ordAndLines = (List<ordAndLine>)Session["myList2"];
 
             //foodGroupDd.Enabled = true;
             if (ordLines.Count != 0)
@@ -191,124 +191,137 @@ public partial class Shop : System.Web.UI.Page
 
             DropDownList quantDd = (DropDownList)GridView1.Rows[index].FindControl("quantDd");
 
-            int selectedQuantity = Convert.ToInt32(quantDd.SelectedItem.Value); 
-           
-            
+            int selectedQuantity = Convert.ToInt32(quantDd.SelectedItem.Value);
+
             ResCtrl resCtrl = new ResCtrl();
 
-            OrderLineCtrl ordLctrl = new OrderLineCtrl();
-
-
-            OrderCtrl ordCtrl = new OrderCtrl();
-
-            if (ord == null)
+            if (resCtrl.CheckStock(productId, selectedQuantity) == null)
             {
-                ord = new order();
 
-                ord.id = ordCtrl.GetMaxOrderId() + 1;
+                OrderLineCtrl ordLctrl = new OrderLineCtrl();
 
-                Session["order"] = ord;
 
-                orderLine ordL = new orderLine();
+                OrderCtrl ordCtrl = new OrderCtrl();
 
-                if (ordLines.Count == 0)
+                if (ord == null)
                 {
-                    ordL.id = ordLctrl.GetMaxOrderLineId() + 1;
-                    ordL.prodId = productId;
-                    
-                    ordL.quantity = selectedQuantity;
-                    
-                    ordLines.Add(ordL);
-                }
+                    ord = new order();
 
+                    ord.id = ordCtrl.GetMaxOrderId() + 1;
+
+                    Session["order"] = ord;
+
+                    orderLine ordL = new orderLine();
+
+                    if (ordLines.Count == 0)
+                    {
+                        ordL.id = ordLctrl.GetMaxOrderLineId() + 1;
+                        ordL.prodId = productId;
+
+
+                        ordL.quantity = selectedQuantity;
+
+                        ordLines.Add(ordL);
+                    }
+
+                    else
+                    {
+                        int oldId = ordLines.Max(obj => obj.id);
+                        ordL.prodId = productId;
+                        ordL.id = oldId + 1;
+
+                        ordL.quantity = selectedQuantity;
+                        ordLines.Add(ordL);
+
+                    }
+
+
+
+                }
                 else
                 {
-                    int oldId = ordLines.Max(obj => obj.id);
-                    ordL.prodId = productId;
-                    ordL.id = oldId + 1;
-                    ordL.quantity = selectedQuantity;
-                    ordLines.Add(ordL);
+                    ord = (order)Session["order"];
+
+                    orderLine ordL = new orderLine();
+
+                    if (ordLines.Count == 0)
+                    {
+                        ordL.id = ordLctrl.GetMaxOrderLineId() + 1;
+                        ordL.prodId = productId;
+
+                        ordL.quantity = selectedQuantity;
+                        ordLines.Add(ordL);
+                    }
+
+                    else
+                    {
+                        int oldId = ordLines.Max(obj => obj.id);
+                        ordL.prodId = productId;
+
+                        ordL.quantity = selectedQuantity;
+                        ordL.id = oldId + 1;
+
+
+                        ordLines.Add(ordL);
+                    }
+
+
                 }
+
+
+
+
+
+                GridView2.DataSource = ordLines;
+
+                GridView2.DataBind();
+
+
+                foreach (GridViewRow gvR in GridView2.Rows)
+                {
+                    int prodId = Convert.ToInt32(GridView2.DataKeys[gvR.RowIndex].Values[1]);
+
+                    product prod = resCtrl.GetProductByProdId(prodId);
+
+                    gvR.Cells[2].Text = prod.name;
+
+                    decimal protein = Convert.ToInt32(gvR.Cells[8].Text) * Convert.ToDecimal(prod.protein);
+
+                    gvR.Cells[3].Text = protein.ToString();
+
+                    decimal carbs = Convert.ToInt32(gvR.Cells[8].Text) * Convert.ToDecimal(prod.carbs);
+
+                    gvR.Cells[4].Text = carbs.ToString();
+
+                    decimal fat = Convert.ToInt32(gvR.Cells[8].Text) * Convert.ToDecimal(prod.fat);
+
+                    gvR.Cells[5].Text = fat.ToString();
+
+                    decimal totalCalories = Convert.ToInt32(gvR.Cells[8].Text) * Convert.ToDecimal(prod.totalCalories);
+
+                    gvR.Cells[6].Text = totalCalories.ToString();
+
+                    decimal sum = Convert.ToInt32(gvR.Cells[8].Text) * Convert.ToDecimal(prod.price);
+
+                    gvR.Cells[7].Text = sum.ToString();
+
+                }
+
+
+                GridView2CalculateFooter();
+
+                resDrop.Enabled = false;
+                createOrderBtn.Enabled = true;
 
 
 
             }
             else
             {
-                ord = (order)Session["order"];
-
-                orderLine ordL = new orderLine();
-
-                if (ordLines.Count == 0)
-                {
-                    ordL.id = ordLctrl.GetMaxOrderLineId() + 1;
-                    ordL.prodId = productId;
-                    ordL.quantity = selectedQuantity;
-                    ordLines.Add(ordL);
-                }
-
-                else
-                {
-                    int oldId = ordLines.Max(obj => obj.id);
-                    ordL.prodId = productId;
-                    ordL.quantity = selectedQuantity;
-                    ordL.id = oldId + 1;
-
-
-                    ordLines.Add(ordL);
-                }
-
-
+                ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('" + "Selected product does not have enough quantity" + "');", true);
             }
-
-
-
-            
-
-            GridView2.DataSource = ordLines;
-
-            GridView2.DataBind();
-
-
-            foreach (GridViewRow gvR in GridView2.Rows)
-            {
-                int prodId = Convert.ToInt32(GridView2.DataKeys[gvR.RowIndex].Values[1]);
-                
-                product prod = resCtrl.GetProductByProdId(prodId);
-
-                gvR.Cells[2].Text = prod.name;
-
-                decimal protein = Convert.ToInt32(gvR.Cells[8].Text) * Convert.ToDecimal(prod.protein);
-
-                gvR.Cells[3].Text = protein.ToString();
-
-                decimal carbs = Convert.ToInt32(gvR.Cells[8].Text) * Convert.ToDecimal(prod.carbs);
-
-                gvR.Cells[4].Text = carbs.ToString();
-
-                decimal fat = Convert.ToInt32(gvR.Cells[8].Text) * Convert.ToDecimal(prod.fat);
-
-                gvR.Cells[5].Text = fat.ToString();
-
-                decimal totalCalories = Convert.ToInt32(gvR.Cells[8].Text) * Convert.ToDecimal(prod.totalCalories);
-
-                gvR.Cells[6].Text = totalCalories.ToString();
-
-                decimal sum = Convert.ToInt32(gvR.Cells[8].Text) * Convert.ToDecimal(prod.price);
-
-                gvR.Cells[7].Text = sum.ToString();
-                
-            }
-            
-
-            GridView2CalculateFooter();
-
-            resDrop.Enabled = false;
-            createOrderBtn.Enabled = true;
-
-
-
         }
+            
     }
 
 

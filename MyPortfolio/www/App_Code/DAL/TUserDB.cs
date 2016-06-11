@@ -24,8 +24,8 @@ public class TUserDB : BaseDB
     public void UpdateUser(_User user)
     {
         
-            
-            dataContext.SubmitChanges();
+           
+        dataContext.SubmitChanges();
         
     }
 

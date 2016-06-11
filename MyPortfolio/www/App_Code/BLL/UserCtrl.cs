@@ -47,10 +47,11 @@ public class UserCtrl
         TuserDB.SaveUser(user);
     }
 
-    public void UpdateUser(int id, string firstName, string lastName, string email, string password, string Uaddress)
+    public void UpdateUser(int id, string userName, string firstName, string lastName, string email, string password, string Uaddress)
     {
         _User user = GetUserById(id);
-        
+
+        user.userName = userName;
         user.FirstName = firstName;
         user.LastName = lastName;
         user._Address = Uaddress;

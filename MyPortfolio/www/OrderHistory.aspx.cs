@@ -36,6 +36,10 @@ public partial class OrderHistory : System.Web.UI.Page
 
             products = ordAndLineCtrl.GetProductsByOrderId(ordId);
 
+            GridViewRow row = GridView1.Rows[rowId];
+
+            row.BackColor = System.Drawing.Color.LightGray;
+
             GridView2.DataSource = products;
             GridView2.DataBind();
 

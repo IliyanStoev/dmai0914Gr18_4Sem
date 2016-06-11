@@ -7,7 +7,7 @@
 
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <title>404 | Nova</title>
+    <title></title>
     <meta name="description" content=""/>
     <meta name="viewport" content="width=device-width"/>
 
@@ -43,7 +43,8 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </a>
-                <a id="logo" class="pull-left" href="index.html"></a>
+                
+                <a id="logo" class="pull-left" href="Home.aspx"></a>
                 <div class="nav-collapse collapse pull-right">
                     <ul class="nav">
                         <li id="homeMenuItem" runat="server"><a href="Home.aspx">Home</a></li>

@@ -30,7 +30,7 @@
           <!-- Username -->
           <div class="controls">
              
-            <input type="text" id="username" placeholder="Username" class="input-xlarge" required="required" runat="server" readonly="true"/>
+            <input type="text" id="username" placeholder="Username" class="input-xlarge" required="required" runat="server" readonly="true"/> <input type="text" id="userName2" placeholder="Username" class="input-xlarge" required="required" runat="server"/>
           </div>
         </div>
           <div class="control-group">
@@ -77,7 +77,7 @@
         <div class="control-group">
           <!-- Button -->
           <div class="controls">
-              <asp:Button class="btn btn-success btn-large" Text="Update" runat="server" OnClick="UpdateUserClick" />
+              <asp:Button class="btn btn-success btn-large" Text="Update" runat="server" OnClick="UpdateUserClick" OnClientClick="return confirm('Are you sure?');" />
               <asp:Button class="btn btn-success btn-large" Text="Suspend Account" runat="server" OnClick="DeleteUserClick" OnClientClick="return confirm('Are you sure?');"/>
               
               

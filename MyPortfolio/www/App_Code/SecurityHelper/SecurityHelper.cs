@@ -24,6 +24,7 @@ public class SecurityHelper : System.Web.UI.Page
         }
         if (HttpContext.Current.Session["username"] != null)
         {
+
             displayName = HttpContext.Current.Session["username"].ToString();
         }
 	}

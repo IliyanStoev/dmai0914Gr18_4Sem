@@ -10,6 +10,8 @@ public partial class UpdateUser : System.Web.UI.Page
     SecurityHelper sch = new SecurityHelper();
     protected void Page_Load(object sender, EventArgs e)
     {
+
+        Master.PageID = "User Profile";
         
         int id = Convert.ToInt32(HttpContext.Current.Session["id"]);
         UserCtrl userCtrl = new UserCtrl();
@@ -33,15 +35,23 @@ public partial class UpdateUser : System.Web.UI.Page
         int id = Convert.ToInt32(HttpContext.Current.Session["id"]);
         _User user = userCtrl.GetUserById(id);
 
-
+        string UserName = null;
         string FirstName = null;
         string LastName = null;
         string _address = null;
         string Email = null;
         string Password = null;
 
-        
 
+        if (userName2.Value.Length == 0)
+        {
+            UserName = username.Value;
+
+        }
+        else
+        {
+            UserName = userName2.Value;
+        }
         if (firstName2.Value.Length == 0)
         {
             FirstName = firstName.Value;
@@ -90,9 +100,14 @@ public partial class UpdateUser : System.Web.UI.Page
 
 
 
-        userCtrl.UpdateUser(id, FirstName, LastName, Email, Password, _address);
+        userCtrl.UpdateUser(id, UserName, FirstName, LastName, Email, Password, _address);
+
         
-        Response.Redirect("Home.aspx");
+        
+        //Response.Redirect("Home.aspx");
+        sch.LogOut();
+
+        Response.Redirect("UpdateSuccess.aspx");
 
     }
   

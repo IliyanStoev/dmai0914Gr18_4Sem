@@ -3,6 +3,7 @@ using System.Activities.Statements;
 using System.Collections.Generic;
 using System.Data.Common;
 using System.Linq;
+using System.Transactions;
 using System.Web;
 
 public class RestaurantDB : BaseDB
@@ -50,8 +51,9 @@ public class RestaurantDB : BaseDB
 
     public void UpdateProduct2(int prodId, int quantity)
     {
+        TransactionOptions options = new TransactionOptions { IsolationLevel = IsolationLevel.RepeatableRead };
 
-        using (System.Transactions.TransactionScope trans = new System.Transactions.TransactionScope())
+        using (System.Transactions.TransactionScope trans = new System.Transactions.TransactionScope(TransactionScopeOption.Required, options))
         {
             product prod = GetProductByProdId(prodId);
             try
@@ -68,9 +70,9 @@ public class RestaurantDB : BaseDB
                    
                 
             }
-            catch
+            catch(Exception ex)
             {
-                
+                throw ex;
             }
 
           
@@ -82,7 +84,10 @@ public class RestaurantDB : BaseDB
 
     public product CheckStock(int prodId, int quantity)
     {
-        using (System.Transactions.TransactionScope trans2 = new System.Transactions.TransactionScope())
+
+        TransactionOptions options = new TransactionOptions { IsolationLevel = IsolationLevel.RepeatableRead };
+
+        using (System.Transactions.TransactionScope trans2 = new System.Transactions.TransactionScope(TransactionScopeOption.Required, options))
         {
             product prod = GetProductByProdId(prodId);
 
