@@ -28,9 +28,31 @@ public class RestaurantDB : BaseDB
 
     public product GetProductByProdId(int prodId)
     {
-       
+        product result = null;
 
-            return dataContext.products.Where(x => x.id == prodId).FirstOrDefault();
+        TransactionOptions options = new TransactionOptions { IsolationLevel = IsolationLevel.RepeatableRead };
+        try
+        {
+            using (System.Transactions.TransactionScope trans = new System.Transactions.TransactionScope(TransactionScopeOption.Required, options))
+            {
+               
+                    
+                    result = dataContext.products.Where(x => x.id == prodId).FirstOrDefault();
+
+                   
+                        trans.Complete();
+                        return result;
+                    
+             
+            }
+        }
+
+        catch (Exception e)
+        {
+            throw e;
+        }
+
+            //return dataContext.products.Where(x => x.id == prodId).FirstOrDefault();
         
     }
 
@@ -51,59 +73,57 @@ public class RestaurantDB : BaseDB
 
     public void UpdateProduct2(int prodId, int quantity)
     {
+        //Transaction Method
+        product prod = GetProductByProdId(prodId);
+
         TransactionOptions options = new TransactionOptions { IsolationLevel = IsolationLevel.RepeatableRead };
-
-        using (System.Transactions.TransactionScope trans = new System.Transactions.TransactionScope(TransactionScopeOption.Required, options))
+        try 
         {
-            product prod = GetProductByProdId(prodId);
-            try
-            {
-               
-                    int newStockValue = Convert.ToInt32(prod.stock - quantity);
-                    int newOrderedValue = Convert.ToInt32(prod.ordered + quantity);
-
-                    prod.stock = newStockValue;
-                    prod.ordered = newOrderedValue;
-
-                    dataContext.SubmitChanges();
-                    trans.Complete();
-                   
-                
-            }
-            catch(Exception ex)
-            {
-                throw ex;
-            }
-
+          using (System.Transactions.TransactionScope trans2 = new System.Transactions.TransactionScope(TransactionScopeOption.Required, options))
+        {
           
+                int newStockValue = Convert.ToInt32(prod.stock - quantity);
+                int newOrderedValue = Convert.ToInt32(prod.ordered + quantity);
 
-            
+                prod.stock = newStockValue;
+                prod.ordered = newOrderedValue;
+
+                dataContext.SubmitChanges();
+
+                trans2.Complete();
+        }
+        }
+
+        catch (Exception e)
+        { 
+            throw e;
+        }
+     
         }
         
-    }
-
+    
     public product CheckStock(int prodId, int quantity)
     {
 
-        TransactionOptions options = new TransactionOptions { IsolationLevel = IsolationLevel.RepeatableRead };
+        /*TransactionOptions options = new TransactionOptions { IsolationLevel = IsolationLevel.RepeatableRead };
 
-        using (System.Transactions.TransactionScope trans2 = new System.Transactions.TransactionScope(TransactionScopeOption.Required, options))
-        {
+        using (System.Transactions.TransactionScope trans2 = new System.Transactions.TransactionScope(TransactionScopeOption.Required, options))*/
+        
             product prod = GetProductByProdId(prodId);
-
+            
             if (prod.stock >= quantity)
             {
-                trans2.Complete();
+                //trans2.Complete();
                 return null;
                 
             }
             else
             {
-                trans2.Complete();
+                //trans2.Complete();
                 return prod;
             }
-        }
-    }
+      }
+    
 
    
 }

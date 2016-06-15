@@ -30,7 +30,7 @@
           <!-- Username -->
           <div class="controls">
              
-            <input type="text" id="username" placeholder="Username" class="input-xlarge" required="required" runat="server" readonly="true"/> <input type="text" id="userName2" placeholder="Username" class="input-xlarge" required="required" runat="server"/>
+            <input type="text" id="username" placeholder="Username" class="input-xlarge" required="required" runat="server" readonly="true"/> <input type="text" id="userName2" placeholder="Username" class="input-xlarge" runat="server"/>
           </div>
         </div>
           <div class="control-group">
